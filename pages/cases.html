@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kho Tình huống Pháp lý – LexEdu</title>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    .case-card{background:var(--card-bg);border:1px solid var(--border);border-radius:16px;padding:1.5rem;transition:all 0.25s;cursor:pointer;}
+    .case-card:hover{transform:translateY(-4px);border-color:rgba(200,150,12,0.35);box-shadow:0 8px 28px rgba(0,0,0,0.35);}
+    .case-header{display:flex;align-items:flex-start;gap:1rem;margin-bottom:1rem;}
+    .case-icon{width:48px;height:48px;border-radius:12px;background:rgba(200,150,12,0.12);display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;}
+    .case-title{font-size:1rem;font-weight:700;color:#fff;margin-bottom:0.3rem;}
+    .case-area{display:inline-block;font-size:0.72rem;font-weight:700;padding:0.2rem 0.65rem;border-radius:100px;}
+    .case-body{font-size:0.85rem;color:var(--text-muted);line-height:1.7;margin-bottom:1rem;}
+    .case-footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;}
+    .case-meta{display:flex;gap:0.8rem;font-size:0.75rem;color:var(--text-muted);}
+    .diff-badge{padding:0.2rem 0.65rem;border-radius:100px;font-size:0.72rem;font-weight:700;}
+    .diff-easy{background:rgba(16,185,129,0.12);color:#6ee7b7;}
+    .diff-mid{background:rgba(245,158,11,0.12);color:#fcd34d;}
+    .diff-hard{background:rgba(239,68,68,0.12);color:#fca5a5;}
+    .filter-pills{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1.5rem;}
+    .pill{padding:0.4rem 1rem;border-radius:100px;background:none;border:1px solid var(--border);color:var(--text-muted);font-family:inherit;font-size:0.82rem;cursor:pointer;transition:all 0.2s;}
+    .pill.active,.pill:hover{background:rgba(200,150,12,0.12);border-color:rgba(200,150,12,0.4);color:#f0c040;}
+    .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:200;display:flex;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(4px);}
+    .modal-box{background:#0d1528;border:1px solid var(--border);border-radius:20px;padding:2rem;max-width:680px;width:100%;max-height:85vh;overflow-y:auto;position:relative;}
+    .modal-close{position:absolute;top:1rem;right:1rem;background:none;border:none;color:var(--text-muted);font-size:1.3rem;cursor:pointer;}
+    .question-item{background:rgba(200,150,12,0.06);border-left:3px solid rgba(200,150,12,0.4);padding:0.6rem 0.85rem;border-radius:0 8px 8px 0;font-size:0.85rem;color:var(--text-muted);margin-bottom:0.5rem;}
+    .comment-item{background:rgba(255,255,255,0.03);border-radius:10px;padding:0.85rem;margin-bottom:0.6rem;}
+    .comment-av{width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:0.68rem;font-weight:700;color:#fff;flex-shrink:0;}
+    .search-row{display:flex;gap:1rem;margin-bottom:1.5rem;flex-wrap:wrap;}
+    .search-row input{flex:1;padding:0.75rem 1rem;background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:10px;color:var(--text);font-family:inherit;font-size:0.88rem;min-width:200px;}
+    .search-row input:focus{outline:none;border-color:rgba(200,150,12,0.4);}
+    .cases-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:1.2rem;}
+    .add-case-box{background:rgba(200,150,12,0.05);border:2px dashed rgba(200,150,12,0.25);border-radius:14px;padding:1.5rem;margin-bottom:2rem;display:none;}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:0.75rem;}
+    .form-row input,.form-row select,.add-case-box textarea,.add-case-box input,.add-case-box select{width:100%;padding:0.65rem 0.9rem;background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:inherit;font-size:0.85rem;box-sizing:border-box;}
+    .add-case-box textarea{min-height:90px;resize:vertical;}
+    .form-row input:focus,.add-case-box input:focus,.add-case-box textarea:focus,.add-case-box select:focus{outline:none;border-color:rgba(200,150,12,0.4);}
+  </style>
+</head>
+<body>
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo"><div class="logo-icon">⚖</div><div class="logo-text"><span class="logo-main">LexEdu</span><span class="logo-sub">HVHCQTC</span></div></a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html" class="nav-link">LexEdu</a></li>
+        <li><a href="library.html" class="nav-link">📚 Kho Tài liệu</a></li>
+        <li><a href="cases.html" class="nav-link active">⚖️ Tình huống</a></li>
+        <li><a href="forum.html" class="nav-link">🤝 Đồng kiến tạo</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="login.html" class="btn btn-outline">Đăng nhập</a>
+        <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="page-hero">
+    <span class="section-tag">Kho lưu trữ 2</span>
+    <h1>⚖️ Kho Tình huống Pháp lý</h1>
+    <p>Tình huống pháp lý thực tiễn do giảng viên biên soạn. Sinh viên phân tích và bình luận.</p>
+  </div>
+
+  <div class="page-content">
+    <div class="container">
+
+      <!-- GV: Thêm tình huống mới -->
+      <div class="add-case-box" id="addCaseBox">
+        <h3 style="color:#fff;margin-bottom:1rem;font-size:1rem;">➕ Thêm tình huống pháp lý mới</h3>
+        <div class="form-row">
+          <input type="text" id="cTitle" placeholder="Tiêu đề tình huống *" />
+          <select id="cArea">
+            <option>Luật Dân sự</option><option>Luật Hành chính</option>
+            <option>Luật Hình sự</option><option>Luật Thương mại</option>
+            <option>Luật Lao động</option><option>Luật Đất đai</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <select id="cDiff">
+            <option value="easy">Cơ bản</option>
+            <option value="mid" selected>Trung bình</option>
+            <option value="hard">Nâng cao</option>
+          </select>
+          <input type="text" id="cQuestions" placeholder="Câu hỏi gợi ý (cách nhau bởi dấu |)" />
+        </div>
+        <textarea id="cContent" placeholder="Nội dung tình huống *" style="margin-bottom:0.75rem;"></textarea>
+        <div style="display:flex;gap:0.75rem;">
+          <button onclick="submitCase()" class="btn btn-primary" style="font-size:0.85rem;">Đăng tình huống</button>
+          <span id="caseMsg" style="font-size:0.82rem;align-self:center;"></span>
+        </div>
+      </div>
+
+      <!-- Filter -->
+      <div class="filter-pills" id="filterPills">
+        <button class="pill active" onclick="filterCases(this,'all')">Tất cả</button>
+        <button class="pill" onclick="filterCases(this,'Luật Dân sự')">Luật Dân sự</button>
+        <button class="pill" onclick="filterCases(this,'Luật Hành chính')">Luật Hành chính</button>
+        <button class="pill" onclick="filterCases(this,'Luật Hình sự')">Luật Hình sự</button>
+        <button class="pill" onclick="filterCases(this,'Luật Thương mại')">Luật Thương mại</button>
+        <button class="pill" onclick="filterCases(this,'Luật Lao động')">Luật Lao động</button>
+      </div>
+      <div class="search-row">
+        <input type="text" id="caseSearch" placeholder="🔍  Tìm kiếm tình huống..." oninput="renderCases()" />
+      </div>
+
+      <div class="cases-grid" id="casesGrid"></div>
+    </div>
+  </div>
+
+  <!-- Modal xem chi tiết -->
+  <div class="modal-overlay" id="caseModal" style="display:none;" onclick="closeModal(event)">
+    <div class="modal-box" id="modalBox">
+      <button class="modal-close" onclick="document.getElementById('caseModal').style.display='none'">✕</button>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+  <footer class="footer"><div class="container"><div class="footer-bottom"><p>© 2025 LexEdu</p></div></div></footer>
+
+  <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/db.js"></script>
+  <script src="../js/cloud-db.js"></script>
+  <script src="../js/cloud-socket.js"></script>
+  <script src="../js/supabase-db.js"></script>
+  <script src="../js/main.js"></script>
+  <script>
+    let activeFilter = 'all';
+    const areaColors = {'Luật Dân sự':'rgba(79,70,229,0.15)','Luật Hành chính':'rgba(200,150,12,0.15)','Luật Hình sự':'rgba(239,68,68,0.15)','Luật Thương mại':'rgba(16,185,129,0.12)','Luật Lao động':'rgba(139,92,246,0.12)','Luật Đất đai':'rgba(245,158,11,0.12)'};
+    const areaTextColors = {'Luật Dân sự':'#818cf8','Luật Hành chính':'#f0c040','Luật Hình sự':'#fca5a5','Luật Thương mại':'#6ee7b7','Luật Lao động':'#c4b5fd','Luật Đất đai':'#fcd34d'};
+    const diffMap = {easy:'diff-easy',mid:'diff-mid',hard:'diff-hard'};
+    const diffLabel = {easy:'Cơ bản',mid:'Trung bình',hard:'Nâng cao'};
+    const avColors = ['#1e3a5f','#4f46e5','#10b981','#c8960c','#ec4899','#8b5cf6'];
+
+    function getAvColor(name) { let h=0; for(let c of (name||'X')) h+=c.charCodeAt(0); return avColors[h%avColors.length]; }
+
+    function filterCases(btn, area) {
+      activeFilter = area;
+      document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      renderCases();
+    }
+
+    function renderCases() {
+      const q = (document.getElementById('caseSearch').value||'').toLowerCase();
+      let cases = DB.getCases();
+      if (activeFilter !== 'all') cases = cases.filter(c => c.area === activeFilter);
+      if (q) cases = cases.filter(c => c.title.toLowerCase().includes(q) || (c.content||'').toLowerCase().includes(q));
+
+      const grid = document.getElementById('casesGrid');
+      if (!cases.length) { grid.innerHTML = '<div style="text-align:center;padding:3rem;color:var(--text-muted);grid-column:1/-1;">Không có tình huống nào.</div>'; return; }
+
+      grid.innerHTML = cases.map(c => {
+        const areaBg = areaColors[c.area]||'rgba(255,255,255,0.06)';
+        const areaColor = areaTextColors[c.area]||'#fff';
+        return `
+          <div class="case-card" onclick="openCase('${c.id}')">
+            <div class="case-header">
+              <div class="case-icon">⚖️</div>
+              <div>
+                <div class="case-title">${c.title}</div>
+                <span class="case-area" style="background:${areaBg};color:${areaColor};">${c.area||''}</span>
+                &nbsp;<span class="diff-badge ${diffMap[c.difficulty]||'diff-mid'}">${diffLabel[c.difficulty]||'Trung bình'}</span>
+              </div>
+            </div>
+            <div class="case-body">${(c.content||'').slice(0,180)}${(c.content||'').length>180?'...':''}</div>
+            <div class="case-footer">
+              <div class="case-meta">
+                <span>👤 ${c.author||'Giảng viên'}</span>
+                <span>💬 ${(c.comments||[]).length} bình luận</span>
+              </div>
+              <span style="font-size:0.78rem;color:#f0c040;">Xem & phân tích →</span>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    let activeCaseId = null;
+
+    function openCase(id) {
+      activeCaseId = id;
+      const c = DB.getCases().find(x => x.id === id);
+      if (!c) return;
+      const user = Auth.getSession();
+      const areaBg = areaColors[c.area]||'rgba(255,255,255,0.06)';
+      const areaColor = areaTextColors[c.area]||'#fff';
+
+      const commentsHtml = (c.comments||[]).map(cm => `
+        <div class="comment-item">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+            <div class="comment-av" style="background:${getAvColor(cm.author||'?')};">${(cm.avatar||'??')}</div>
+            <strong style="font-size:0.85rem;color:#fff;">${cm.author||'Ẩn danh'}</strong>
+            <span style="font-size:0.72rem;color:var(--text-muted);">${new Date(cm.createdAt||'').toLocaleDateString('vi-VN')}</span>
+            ${cm.role==='lecturer'?'<span style="background:rgba(200,150,12,0.15);color:#f0c040;font-size:0.68rem;padding:0.1rem 0.4rem;border-radius:100px;">GV</span>':''}
+          </div>
+          <p style="font-size:0.85rem;color:var(--text-muted);line-height:1.6;margin:0;">${cm.text}</p>
+        </div>
+      `).join('') || '<p style="color:var(--text-muted);font-size:0.85rem;">Chưa có bình luận. Hãy là người đầu tiên phân tích tình huống này!</p>';
+
+      const commentForm = user ? `
+        <div style="margin-top:1rem;">
+          <textarea id="commentInput" placeholder="Viết phân tích / nhận xét của bạn..." style="width:100%;min-height:80px;padding:0.75rem;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:10px;color:var(--text);font-family:inherit;font-size:0.85rem;resize:vertical;box-sizing:border-box;"></textarea>
+          <button onclick="submitComment('${id}')" class="btn btn-primary" style="margin-top:0.6rem;font-size:0.85rem;">💬 Gửi nhận xét</button>
+        </div>
+      ` : `<div style="background:rgba(200,150,12,0.06);border:1px solid rgba(200,150,12,0.2);border-radius:10px;padding:0.85rem;text-align:center;margin-top:1rem;font-size:0.85rem;color:var(--text-muted);">
+        <a href="login.html" style="color:#f0c040;font-weight:600;">Đăng nhập</a> để gửi phân tích
+      </div>`;
+
+      document.getElementById('modalContent').innerHTML = `
+        <span class="case-area" style="background:${areaBg};color:${areaColor};margin-bottom:0.75rem;display:inline-block;">${c.area}</span>
+        <span class="diff-badge ${diffMap[c.difficulty]||'diff-mid'}" style="margin-left:6px;">${diffLabel[c.difficulty]||''}</span>
+        <h2 style="font-family:'Playfair Display',serif;font-size:1.4rem;color:#fff;margin:0.75rem 0;">${c.title}</h2>
+        <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:1.2rem;">👤 ${c.author||''} &nbsp;·&nbsp; 💬 ${(c.comments||[]).length} bình luận</p>
+        <div style="background:rgba(255,255,255,0.03);border-radius:10px;padding:1rem;margin-bottom:1.2rem;font-size:0.88rem;color:var(--text-muted);line-height:1.8;">${c.content}</div>
+        ${(c.questions||[]).length?`<div style="margin-bottom:1.2rem;"><p style="font-weight:700;color:#fff;font-size:0.9rem;margin-bottom:0.5rem;">❓ Câu hỏi gợi ý:</p>${(c.questions).map(q=>`<div class="question-item">${q}</div>`).join('')}</div>`:''}
+        <div style="border-top:1px solid var(--border);padding-top:1rem;">
+          <p style="font-weight:700;color:#fff;font-size:0.9rem;margin-bottom:0.75rem;">💬 Phân tích & Bình luận</p>
+          ${commentsHtml}
+          ${commentForm}
+        </div>
+      `;
+      document.getElementById('caseModal').style.display = 'flex';
+    }
+
+    function submitComment(caseId) {
+      const user = Auth.getSession();
+      if (!user) { window.location.href = 'login.html'; return; }
+      const text = (document.getElementById('commentInput').value||'').trim();
+      if (!text) return;
+
+      if (typeof CloudDB !== 'undefined' && CloudDB.createCaseComment) {
+        CloudDB.createCaseComment(caseId, { text, author: user.name, avatar: user.avatar, role: user.role });
+      } else {
+        DB.addCaseComment(caseId, { text, author: user.name, avatar: user.avatar, role: user.role });
+      }
+
+      openCase(caseId);
+      renderCases();
+    }
+
+    function closeModal(e) { if (e.target.id === 'caseModal') document.getElementById('caseModal').style.display = 'none'; }
+
+    function submitCase() {
+      const user = Auth.getSession();
+      if (!user || user.role !== 'lecturer') return;
+      const title = document.getElementById('cTitle').value.trim();
+      const content = document.getElementById('cContent').value.trim();
+      const msg = document.getElementById('caseMsg');
+      if (!title || !content) { msg.style.color='#fca5a5'; msg.textContent='⚠ Cần có tiêu đề và nội dung'; return; }
+      const questions = document.getElementById('cQuestions').value.split('|').map(q=>q.trim()).filter(Boolean);
+      
+      if (typeof CloudDB !== 'undefined' && CloudDB.createCase) {
+        CloudDB.createCase({ title, content, area: document.getElementById('cArea').value, difficulty: document.getElementById('cDiff').value, questions, author: user.name });
+      } else {
+        DB.addCase({ title, content, area: document.getElementById('cArea').value, difficulty: document.getElementById('cDiff').value, questions, author: user.name });
+      }
+
+      ['cTitle','cContent','cQuestions'].forEach(id => document.getElementById(id).value='');
+      msg.style.color='#6ee7b7'; msg.textContent='✓ Đã đăng tình huống!';
+      setTimeout(() => msg.textContent='', 2500);
+      renderCases();
+    }
+
+    renderCases();
+
+    if (typeof CloudDB !== 'undefined' && CloudDB.listenCases) {
+      CloudDB.listenCases((updatedCases) => {
+        renderCases();
+        if (activeCaseId && document.getElementById('caseModal').style.display === 'flex') {
+          openCase(activeCaseId);
+        }
+      });
+    }
+
+    const _u = Auth.getSession();
+    if (_u && _u.role === 'lecturer') document.getElementById('addCaseBox').style.display = 'block';
+  </script>
+</body>
+</html>

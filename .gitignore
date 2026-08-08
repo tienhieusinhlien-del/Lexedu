@@ -1,0 +1,4 @@
+node_modules/
+lexedu.db
+*.log
+.env

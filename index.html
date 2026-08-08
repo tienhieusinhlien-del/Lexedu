@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LexEdu – Học tập Luật Đồng kiến tạo</title>
+  <meta name="description" content="Nền tảng học tập Luật với kho tài liệu và không gian đồng kiến tạo." />
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <div class="logo-icon">⚖</div>
+        <div class="logo-text"><span class="logo-main">LexEdu</span><span class="logo-sub">HVHCQTC</span></div>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html" class="nav-link active">LexEdu</a></li>
+        <li><a href="pages/library.html" class="nav-link">📚 Kho Tài liệu</a></li>
+        <li><a href="pages/cases.html" class="nav-link">⚖️ Tình huống</a></li>
+        <li><a href="pages/forum.html" class="nav-link">🤝 Đồng kiến tạo</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="pages/login.html" class="btn btn-outline" id="loginBtn">Đăng nhập</a>
+        <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg">
+      <div class="hero-orb hero-orb-1"></div>
+      <div class="hero-orb hero-orb-2"></div>
+      <div class="hero-grid"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-badge"><span class="badge-dot"></span>Giảng viên – Sinh viên Đồng kiến tạo</div>
+      <h1 class="hero-title">Học Luật cùng nhau<br /><span class="gradient-text">Hiệu quả hơn</span></h1>
+      <p class="hero-desc">Kho tài liệu học thuật đầy đủ và không gian trao đổi, thảo luận pháp lý cùng giảng viên và bạn học.</p>
+      <div class="hero-actions">
+        <a href="pages/forum.html" class="btn btn-primary btn-lg">
+          <span>Vào Đồng kiến tạo</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="pages/library.html" class="btn btn-glass btn-lg">Xem Kho tài liệu</a>
+      </div>
+    </div>
+    <div class="hero-visual" style="flex:1;display:flex;justify-content:center;align-items:center;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;max-width:360px;">
+        <a href="pages/library.html" style="background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:16px;padding:1.5rem;text-align:center;transition:all 0.3s;text-decoration:none;" onmouseover="this.style.transform='translateY(-6px)'" onmouseout="this.style.transform=''">
+          <div style="font-size:2.5rem;margin-bottom:0.5rem;">📚</div>
+          <div style="font-weight:700;color:#fff;font-size:0.95rem;margin-bottom:0.3rem;">Kho Tài liệu</div>
+          <div style="font-size:0.78rem;color:var(--text-muted);">Giáo trình · Bộ luật</div>
+        </a>
+        <a href="pages/cases.html" style="background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:16px;padding:1.5rem;text-align:center;transition:all 0.3s;text-decoration:none;" onmouseover="this.style.transform='translateY(-6px)'" onmouseout="this.style.transform=''">
+          <div style="font-size:2.5rem;margin-bottom:0.5rem;">⚖️</div>
+          <div style="font-weight:700;color:#fff;font-size:0.95rem;margin-bottom:0.3rem;">Tình huống</div>
+          <div style="font-size:0.78rem;color:var(--text-muted);">Thực tiễn · Phân tích</div>
+        </a>
+        <a href="pages/forum.html" style="background:rgba(200,150,12,0.08);border:1px solid rgba(200,150,12,0.25);border-radius:16px;padding:1.5rem;text-align:center;grid-column:1/-1;transition:all 0.3s;text-decoration:none;" onmouseover="this.style.transform='translateY(-6px)'" onmouseout="this.style.transform=''">
+          <div style="font-size:2.5rem;margin-bottom:0.5rem;">🤝</div>
+          <div style="font-weight:700;color:#f0c040;font-size:1rem;margin-bottom:0.3rem;">Không gian Đồng kiến tạo</div>
+          <div style="font-size:0.78rem;color:var(--text-muted);">Đăng bài · Trao đổi · Thảo luận cùng GV</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>© 2025 LexEdu – Học viện Hành chính và Quản trị công · <a href="pages/accounts.html" style="color:var(--text-muted);font-size:0.75rem;">Quản lý tài khoản</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

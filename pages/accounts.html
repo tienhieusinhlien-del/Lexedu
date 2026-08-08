@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Danh sách tài khoản – LexEdu</title>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    body { padding: 2rem; }
+    .page-wrap { max-width: 1000px; margin: 80px auto 4rem; }
+    h1 { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: #fff; margin-bottom: 0.4rem; }
+    .subtitle { color: var(--text-muted); font-size: 0.88rem; margin-bottom: 2rem; }
+    .toolbar { display: flex; gap: 0.75rem; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .count-badge { background: rgba(200,150,12,0.15); border: 1px solid rgba(200,150,12,0.3); color: #f0c040; padding: 0.3rem 0.9rem; border-radius: 100px; font-size: 0.82rem; font-weight: 700; }
+    table { width: 100%; border-collapse: collapse; background: var(--card-bg); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+    thead { background: rgba(255,255,255,0.04); }
+    th { padding: 0.85rem 1rem; text-align: left; font-size: 0.78rem; color: var(--text-muted); font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; border-bottom: 1px solid var(--border); }
+    td { padding: 0.85rem 1rem; font-size: 0.85rem; color: var(--text-muted); border-bottom: 1px solid rgba(255,255,255,0.04); vertical-align: middle; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(255,255,255,0.02); }
+    td strong { color: #fff; }
+    .role-sv { background: rgba(79,70,229,0.15); color: #818cf8; padding: 0.2rem 0.7rem; border-radius: 100px; font-size: 0.72rem; font-weight: 700; white-space: nowrap; }
+    .role-gv { background: rgba(200,150,12,0.15); color: #f0c040; padding: 0.2rem 0.7rem; border-radius: 100px; font-size: 0.72rem; font-weight: 700; white-space: nowrap; }
+    .av { width: 32px; height: 32px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 0.72rem; font-weight: 800; color: #fff; flex-shrink: 0; }
+    .json-box { background: rgba(0,0,0,0.4); border: 1px solid var(--border); border-radius: 12px; padding: 1.2rem; font-family: monospace; font-size: 0.78rem; color: #c4b5fd; overflow-x: auto; white-space: pre; margin-top: 2rem; display: none; max-height: 400px; overflow-y: auto; }
+    .empty { text-align: center; padding: 3rem; color: var(--text-muted); }
+    .del-btn { padding: 0.25rem 0.6rem; border: 1px solid rgba(239,68,68,0.3); border-radius: 6px; background: none; color: #fca5a5; font-size: 0.72rem; cursor: pointer; font-family: inherit; transition: all 0.2s; }
+    .del-btn:hover { background: rgba(239,68,68,0.1); }
+    .demo-tag { font-size: 0.68rem; background: rgba(255,255,255,0.06); color: var(--text-muted); padding: 0.1rem 0.5rem; border-radius: 100px; margin-left: 4px; }
+  </style>
+</head>
+<body>
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">
+        <div class="logo-icon">⚖</div>
+        <div class="logo-text"><span class="logo-main">LexEdu</span><span class="logo-sub">HVHCQTC</span></div>
+      </a>
+      <div class="nav-actions">
+        <a href="../index.html" class="btn btn-outline" style="font-size:0.85rem;">← LexEdu</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="page-wrap">
+    <h1>📋 Danh sách tài khoản</h1>
+    <p class="subtitle">Dữ liệu lưu trong <code style="color:#f0c040;">localStorage</code> của trình duyệt này · Chỉ hiển thị trên máy này</p>
+
+    <div class="toolbar">
+      <span class="count-badge" id="countBadge">0 tài khoản</span>
+      <button class="btn btn-outline" style="font-size:0.82rem;" onclick="toggleJson()">{ } Xem JSON thô</button>
+      <button class="btn btn-outline" style="font-size:0.82rem;" onclick="refreshTable()">↺ Làm mới</button>
+      <button onclick="resetDemo()" style="margin-left:auto;padding:0.4rem 1rem;border:1px solid rgba(239,68,68,0.3);border-radius:8px;background:none;color:#fca5a5;font-size:0.8rem;cursor:pointer;font-family:inherit;">🗑 Reset về demo</button>
+    </div>
+
+    <table id="accountTable">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Avatar</th>
+          <th>Họ tên</th>
+          <th>Mã số / Email</th>
+          <th>Vai trò</th>
+          <th>Lớp / Khoa</th>
+          <th>Email</th>
+          <th>Ngày tạo</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="tableBody">
+        <tr><td colspan="9" class="empty">Đang tải...</td></tr>
+      </tbody>
+    </table>
+
+    <div class="json-box" id="jsonBox"></div>
+  </div>
+
+  <script src="../js/auth.js"></script>
+  <script src="../js/main.js"></script>
+  <script>
+    const DEMO_IDS = ['sv2025001','sv2025002','gv.nguyenvana@hvhcqtc.edu.vn','gv.tranthib@hvhcqtc.edu.vn'];
+    const avColors = ['#1e3a5f','#4f46e5','#10b981','#c8960c','#ec4899','#8b5cf6','#f59e0b'];
+
+    function getColor(name) {
+      let h = 0; for (let c of name) h += c.charCodeAt(0);
+      return avColors[h % avColors.length];
+    }
+
+    function refreshTable() {
+      const users = Auth.getUsers();
+      const tbody = document.getElementById('tableBody');
+      document.getElementById('countBadge').textContent = users.length + ' tài khoản';
+
+      if (!users.length) {
+        tbody.innerHTML = '<tr><td colspan="9" class="empty">Chưa có tài khoản nào</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = users.map((u, i) => {
+        const isDemo = DEMO_IDS.includes(u.id);
+        const color = getColor(u.name || 'U');
+        return `
+          <tr>
+            <td style="color:var(--text-muted);font-size:0.78rem;">${i + 1}</td>
+            <td><div class="av" style="background:${color};">${u.avatar || '?'}</div></td>
+            <td><strong>${u.name}</strong>${isDemo ? '<span class="demo-tag">demo</span>' : ''}</td>
+            <td><code style="font-size:0.78rem;color:#c4b5fd;">${u.id}</code></td>
+            <td><span class="${u.role === 'lecturer' ? 'role-gv' : 'role-sv'}">${u.role === 'lecturer' ? '👨‍🏫 Giảng viên' : '👨‍🎓 Sinh viên'}</span></td>
+            <td>${u.class || u.dept || '—'}</td>
+            <td style="font-size:0.78rem;">${u.email || '—'}</td>
+            <td style="font-size:0.78rem;">${u.createdAt || '—'}</td>
+            <td>${isDemo ? '' : `<button class="del-btn" onclick="deleteUser('${u.id}')">Xoá</button>`}</td>
+          </tr>
+        `;
+      }).join('');
+
+      // Update JSON box
+      const safe = users.map(u => ({ ...u, password: '••••••' }));
+      document.getElementById('jsonBox').textContent = JSON.stringify(safe, null, 2);
+    }
+
+    function deleteUser(id) {
+      if (!confirm('Xoá tài khoản "' + id + '"?')) return;
+      const users = Auth.getUsers().filter(u => u.id !== id);
+      localStorage.setItem('lexedu_users', JSON.stringify(users));
+      refreshTable();
+    }
+
+    function resetDemo() {
+      if (!confirm('Reset toàn bộ về tài khoản demo mặc định? Tất cả tài khoản tự tạo sẽ bị xoá.')) return;
+      localStorage.removeItem('lexedu_users');
+      localStorage.removeItem('lexedu_session');
+      Auth.init ? Auth.init() : location.reload();
+      location.reload();
+    }
+
+    function toggleJson() {
+      const box = document.getElementById('jsonBox');
+      box.style.display = box.style.display === 'none' ? 'block' : 'none';
+    }
+
+    refreshTable();
+  </script>
+</body>
+</html>

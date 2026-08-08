@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Góc AI & Số hoá – LexEdu</title>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    .ai-card{background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius);padding:1.6rem;transition:all 0.3s;}
+    .ai-card:hover{transform:translateY(-4px);box-shadow:var(--shadow);}
+    .ai-card h4{font-size:1rem;font-weight:700;color:#fff;margin-bottom:0.6rem;}
+    .ai-card p{font-size:0.85rem;color:var(--text-muted);line-height:1.7;}
+    .prompt-card{background:rgba(79,70,229,0.06);border:1px solid rgba(79,70,229,0.2);border-radius:12px;padding:1.2rem;margin-bottom:0.8rem;}
+    .prompt-card h5{color:#818cf8;font-size:0.85rem;font-weight:700;margin-bottom:0.5rem;}
+    .prompt-box{background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:8px;padding:0.8rem;font-family:monospace;font-size:0.78rem;color:#c4b5fd;line-height:1.7;position:relative;}
+    .copy-btn{position:absolute;top:0.5rem;right:0.5rem;padding:0.25rem 0.6rem;border:1px solid var(--border);border-radius:6px;background:rgba(255,255,255,0.05);color:var(--text-muted);font-size:0.72rem;cursor:pointer;font-family:inherit;}
+    .copy-btn:hover{background:rgba(255,255,255,0.1);color:#fff;}
+    .ethics-item{display:flex;gap:1rem;align-items:flex-start;padding:1rem;background:var(--card-bg);border:1px solid var(--border);border-radius:12px;margin-bottom:0.75rem;}
+    .ethics-icon{font-size:1.5rem;flex-shrink:0;}
+  </style>
+</head>
+<body>
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo"><div class="logo-icon">⚖</div><div class="logo-text"><span class="logo-main">LexEdu</span><span class="logo-sub">HVHCQTC</span></div></a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html" class="nav-link">Trang chủ</a></li>
+        <li><a href="resources.html" class="nav-link">Học liệu</a></li>
+        <li><a href="cases.html" class="nav-link">Tình huống</a></li>
+        <li><a href="forum.html" class="nav-link">Đồng kiến tạo</a></li>
+        <li><a href="tools.html" class="nav-link">Công cụ</a></li>
+        <li><a href="ai-guide.html" class="nav-link active">AI & Số hoá</a></li>
+      </ul>
+      <div class="nav-actions"><a href="login.html" class="btn btn-outline">Đăng nhập</a><button class="hamburger" id="hamburger"><span></span><span></span><span></span></button></div>
+    </div>
+  </nav>
+
+  <div class="page-hero" style="background:linear-gradient(180deg,rgba(79,70,229,0.2),transparent);">
+    <span class="section-tag" style="background:rgba(79,70,229,0.15);border-color:rgba(79,70,229,0.3);color:#818cf8;">Phân hệ 6</span>
+    <h1>Góc AI & Chuyển đổi số</h1>
+    <p>Học cách sử dụng AI đúng đắn, có đạo đức và hiệu quả trong học tập ngành Luật.</p>
+  </div>
+
+  <div class="page-content">
+    <div class="container">
+      <!-- Overview cards -->
+      <div class="grid-3" style="margin-bottom:3rem;">
+        <div class="ai-card" style="border-top:3px solid #818cf8;">
+          <div style="font-size:2rem;margin-bottom:0.8rem;">🤖</div>
+          <h4>Hướng dẫn sử dụng AI</h4>
+          <p>Cách sử dụng ChatGPT, Gemini, Copilot... đúng cách và hiệu quả trong nghiên cứu pháp luật.</p>
+        </div>
+        <div class="ai-card" style="border-top:3px solid #f0c040;">
+          <div style="font-size:2rem;margin-bottom:0.8rem;">🔍</div>
+          <h4>Kiểm chứng thông tin</h4>
+          <p>Kỹ năng phân biệt thông tin chính xác và sai lệch (AI hallucination) trong văn bản pháp luật.</p>
+        </div>
+        <div class="ai-card" style="border-top:3px solid #6ee7b7;">
+          <div style="font-size:2rem;margin-bottom:0.8rem;">⚖️</div>
+          <h4>Đạo đức sử dụng AI</h4>
+          <p>Ranh giới giữa hỗ trợ học tập và gian lận học thuật. Trách nhiệm người dùng AI trong ngành Luật.</p>
+        </div>
+      </div>
+
+      <!-- Prompt Library -->
+      <div style="margin-bottom:3rem;">
+        <h2 style="font-family:'Playfair Display',serif;font-size:1.6rem;color:#fff;margin-bottom:0.5rem;">📚 Thư viện Prompt mẫu cho Sinh viên Luật</h2>
+        <p style="color:var(--text-muted);margin-bottom:1.5rem;">Sao chép và tùy chỉnh các prompt sau để sử dụng với AI một cách hiệu quả.</p>
+
+        <div class="prompt-card">
+          <h5>📖 Phân tích điều luật</h5>
+          <div class="prompt-box">
+            Hãy phân tích Điều [số điều] của [tên văn bản pháp luật]. Bao gồm:<br/>
+            1. Nội dung chính của điều luật<br/>
+            2. Phạm vi áp dụng<br/>
+            3. Điều kiện để điều luật có hiệu lực<br/>
+            4. Ví dụ thực tiễn minh họa<br/>
+            5. Mối liên hệ với các điều khoản khác trong cùng văn bản
+            <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+          </div>
+        </div>
+
+        <div class="prompt-card">
+          <h5>⚖️ Phân tích tình huống pháp lý</h5>
+          <div class="prompt-box">
+            Tôi có tình huống pháp lý sau: [mô tả tình huống].<br/><br/>
+            Hãy giúp tôi phân tích theo cấu trúc IRAC:<br/>
+            - Issue (Vấn đề pháp lý cần giải quyết)<br/>
+            - Rule (Quy phạm pháp luật áp dụng)<br/>
+            - Application (Áp dụng pháp luật vào tình huống)<br/>
+            - Conclusion (Kết luận)<br/><br/>
+            Lưu ý: Chỉ dựa vào pháp luật Việt Nam hiện hành.
+            <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+          </div>
+        </div>
+
+        <div class="prompt-card">
+          <h5>🔍 So sánh quy định pháp luật</h5>
+          <div class="prompt-box">
+            So sánh quy định về [chủ đề] giữa [Luật A] và [Luật B].<br/>
+            Trình bày theo bảng với các tiêu chí:<br/>
+            - Phạm vi điều chỉnh<br/>
+            - Đối tượng áp dụng<br/>
+            - Điểm giống nhau<br/>
+            - Điểm khác nhau<br/>
+            - Ưu điểm / nhược điểm của từng quy định
+            <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+          </div>
+        </div>
+
+        <div class="prompt-card">
+          <h5>📝 Tóm tắt bản án / án lệ</h5>
+          <div class="prompt-box">
+            Tóm tắt bản án/án lệ sau theo cấu trúc:<br/>
+            1. Thông tin vụ việc (tòa án, năm, số hiệu)<br/>
+            2. Tóm tắt sự việc<br/>
+            3. Vấn đề pháp lý trung tâm<br/>
+            4. Lập luận của các bên<br/>
+            5. Phán quyết của tòa án và lý do<br/>
+            6. Ý nghĩa pháp lý (nếu là án lệ)<br/><br/>
+            [Dán nội dung bản án tại đây]
+            <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ethics section -->
+      <div>
+        <h2 style="font-family:'Playfair Display',serif;font-size:1.6rem;color:#fff;margin-bottom:1.5rem;">⚖️ Đạo đức khi sử dụng AI trong học Luật</h2>
+        <div class="ethics-item">
+          <div class="ethics-icon">✅</div>
+          <div><h4 style="color:#6ee7b7;font-size:0.95rem;margin-bottom:0.3rem;">Nên làm</h4><p style="font-size:0.85rem;color:var(--text-muted);">Dùng AI để giải thích khái niệm, gợi ý hướng nghiên cứu, luyện tập phân tích. Luôn kiểm chứng lại thông tin từ nguồn pháp lý chính thức.</p></div>
+        </div>
+        <div class="ethics-item">
+          <div class="ethics-icon">❌</div>
+          <div><h4 style="color:#fca5a5;font-size:0.95rem;margin-bottom:0.3rem;">Không nên làm</h4><p style="font-size:0.85rem;color:var(--text-muted);">Không sao chép toàn bộ câu trả lời của AI để nộp bài. Không tin tưởng hoàn toàn AI về số điều, khoản của văn bản pháp luật mà không kiểm tra.</p></div>
+        </div>
+        <div class="ethics-item">
+          <div class="ethics-icon">⚠️</div>
+          <div><h4 style="color:#fcd34d;font-size:0.95rem;margin-bottom:0.3rem;">Lưu ý quan trọng</h4><p style="font-size:0.85rem;color:var(--text-muted);">AI có thể "bịa" điều luật không tồn tại (hallucination). Luôn tra cứu Cơ sở dữ liệu Quốc gia về Pháp luật (vbpl.vn) để xác nhận.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer"><div class="container"><div class="footer-bottom"><p>© 2025 LexEdu</p></div></div></footer>
+  <script src="../js/auth.js"></script>
+  <script src="../js/main.js"></script>
+  <script>
+    function copyPrompt(btn) {
+      const text = btn.parentElement.innerText.replace('Copy','').trim();
+      navigator.clipboard.writeText(text).then(() => {
+        btn.textContent = '✓ Đã copy';
+        setTimeout(() => btn.textContent = 'Copy', 2000);
+      });
+    }
+  </script>
+</body>
+</html>

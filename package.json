@@ -1,0 +1,16 @@
+{
+  "name": "lexedu-platform",
+  "version": "1.0.0",
+  "description": "Nền tảng Học tập Luật theo mô hình Giảng viên - Sinh viên Đồng kiến tạo",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "socket.io": "^4.7.5",
+    "sqlite3": "^5.1.7"
+  }
+}

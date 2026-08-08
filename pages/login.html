@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Đăng nhập – LexEdu</title>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">
+        <div class="logo-icon">⚖</div>
+        <div class="logo-text"><span class="logo-main">LexEdu</span><span class="logo-sub">HVHCQTC</span></div>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html" class="nav-link">LexEdu</a></li>
+        <li><a href="resources.html" class="nav-link">Học liệu</a></li>
+        <li><a href="cases.html" class="nav-link">Tình huống</a></li>
+        <li><a href="forum.html" class="nav-link">Đồng kiến tạo</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="register.html" class="btn btn-outline">Đăng ký</a>
+        <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+
+  <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:2rem;position:relative;overflow:hidden;">
+    <div class="hero-bg" style="position:fixed;inset:0;z-index:0;">
+      <div class="hero-orb hero-orb-1"></div>
+      <div class="hero-orb hero-orb-2"></div>
+      <div class="hero-grid"></div>
+    </div>
+    <div class="login-card" style="position:relative;z-index:1;">
+      <div style="text-align:center;margin-bottom:1.5rem;">
+        <div style="font-size:2.5rem;margin-bottom:0.5rem;">⚖️</div>
+        <h2>Chào mừng trở lại</h2>
+        <p class="subtitle">Đăng nhập vào nền tảng LexEdu</p>
+      </div>
+
+      <div class="role-tabs">
+        <button class="role-tab active" id="tabStudent" onclick="switchTab('student')">👨‍🎓 Sinh viên</button>
+        <button class="role-tab" id="tabLecturer" onclick="switchTab('lecturer')">👨‍🏫 Giảng viên</button>
+      </div>
+
+      <!-- Demo hint -->
+      <div id="demoHint" style="background:rgba(200,150,12,0.08);border:1px dashed rgba(200,150,12,0.35);border-radius:10px;padding:0.75rem 1rem;margin-bottom:1.2rem;font-size:0.8rem;color:var(--text-muted);display:flex;align-items:center;justify-content:space-between;gap:0.5rem;flex-wrap:wrap;">
+        <span id="demoText"><b>Demo SV:</b> <code style="color:#f0c040;">sv2025001</code> / <code style="color:#f0c040;">123456</code></span>
+        <button type="button" onclick="fillDemo()" style="padding:0.25rem 0.75rem;background:rgba(200,150,12,0.15);border:1px solid rgba(200,150,12,0.4);border-radius:6px;color:#f0c040;font-size:0.75rem;cursor:pointer;font-family:inherit;font-weight:600;">Điền tự động</button>
+      </div>
+
+      <form onsubmit="handleLogin(event)">
+        <div class="form-group">
+          <label id="idLabel">Mã sinh viên</label>
+          <input type="text" id="loginId" placeholder="Nhập mã sinh viên..." required />
+        </div>
+        <div class="form-group">
+          <label>Mật khẩu</label>
+          <div style="position:relative;">
+            <input type="password" id="loginPw" placeholder="Nhập mật khẩu..." required style="padding-right:3rem;" />
+            <button type="button" onclick="togglePw()" style="position:absolute;right:0.8rem;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:1rem;" id="pwEye">👁</button>
+          </div>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.2rem;">
+          <label style="display:flex;align-items:center;gap:6px;font-size:0.82rem;color:var(--text-muted);cursor:pointer;">
+            <input type="checkbox" /> Ghi nhớ đăng nhập
+          </label>
+          <a href="#" style="font-size:0.82rem;color:#f0c040;">Quên mật khẩu?</a>
+        </div>
+        <button type="submit" class="login-btn" id="loginSubmitBtn">Đăng nhập</button>
+      </form>
+
+      <div id="loginMsg" style="display:none;margin-top:1rem;text-align:center;padding:0.7rem;border-radius:8px;font-size:0.85rem;"></div>
+
+      <div class="login-switch" style="margin-top:1.2rem;">
+        Chưa có tài khoản? <a href="register.html" style="color:#f0c040;font-weight:600;">Đăng ký ngay</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/auth.js"></script>
+  <script src="../js/main.js"></script>
+  <script>
+    // Nếu đã đăng nhập rồi thì redirect
+    const existing = Auth.getSession();
+    if (existing) {
+      window.location.href = existing.role === 'lecturer' ? 'dashboard-lecturer.html' : 'dashboard-student.html';
+    }
+
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('role') === 'lecturer') switchTab('lecturer');
+
+    function switchTab(role) {
+      document.getElementById('tabStudent').classList.toggle('active', role === 'student');
+      document.getElementById('tabLecturer').classList.toggle('active', role === 'lecturer');
+      const isGV = role === 'lecturer';
+      document.getElementById('idLabel').textContent = isGV ? 'Email giảng viên' : 'Mã sinh viên';
+      document.getElementById('loginId').placeholder = isGV ? 'Nhập email @hvhcqtc.edu.vn...' : 'Nhập mã sinh viên...';
+      document.getElementById('demoText').innerHTML = isGV
+        ? '<b>Demo GV:</b> <code style="color:#f0c040;">gv.nguyenvana@hvhcqtc.edu.vn</code> / <code style="color:#f0c040;">gv123456</code>'
+        : '<b>Demo SV:</b> <code style="color:#f0c040;">sv2025001</code> / <code style="color:#f0c040;">123456</code>';
+    }
+
+    function fillDemo() {
+      const isGV = document.getElementById('tabLecturer').classList.contains('active');
+      document.getElementById('loginId').value = isGV ? 'gv.nguyenvana@hvhcqtc.edu.vn' : 'sv2025001';
+      document.getElementById('loginPw').value = isGV ? 'gv123456' : '123456';
+    }
+
+    function togglePw() {
+      const input = document.getElementById('loginPw');
+      input.type = input.type === 'password' ? 'text' : 'password';
+    }
+
+    function handleLogin(e) {
+      e.preventDefault();
+      const id = document.getElementById('loginId').value.trim();
+      const pw = document.getElementById('loginPw').value.trim();
+      const msg = document.getElementById('loginMsg');
+      const btn = document.getElementById('loginSubmitBtn');
+
+      btn.textContent = 'Đang đăng nhập...';
+      btn.disabled = true;
+
+      setTimeout(() => {
+        const result = Auth.login(id, pw);
+        btn.textContent = 'Đăng nhập';
+        btn.disabled = false;
+        msg.style.display = 'block';
+
+        if (!result.success) {
+          msg.style.background = 'rgba(239,68,68,0.1)';
+          msg.style.border = '1px solid rgba(239,68,68,0.3)';
+          msg.style.color = '#fca5a5';
+          msg.textContent = '✗ ' + result.message;
+          return;
+        }
+
+        msg.style.background = 'rgba(16,185,129,0.1)';
+        msg.style.border = '1px solid rgba(16,185,129,0.3)';
+        msg.style.color = '#6ee7b7';
+        msg.textContent = `✓ Đăng nhập thành công! Xin chào ${result.user.name}`;
+        setTimeout(() => {
+          window.location.href = result.user.role === 'lecturer' ? 'dashboard-lecturer.html' : 'dashboard-student.html';
+        }, 800);
+      }, 600);
+    }
+  </script>
+</body>
+</html>

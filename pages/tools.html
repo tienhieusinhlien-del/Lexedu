@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Công cụ Phát triển Năng lực – LexEdu</title>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    .tool-section{margin-bottom:3rem;}
+    .tool-section h2{font-family:'Playfair Display',serif;font-size:1.5rem;color:#fff;margin-bottom:1.2rem;}
+    .skill-item{display:flex;align-items:center;gap:1rem;margin-bottom:0.8rem;}
+    .skill-label{width:200px;font-size:0.85rem;color:var(--text-muted);flex-shrink:0;}
+    .skill-bar{flex:1;height:8px;background:rgba(255,255,255,0.08);border-radius:100px;overflow:hidden;}
+    .skill-fill{height:100%;border-radius:100px;background:linear-gradient(90deg,#c8960c,#f0c040);transition:width 1.5s ease;}
+    .skill-pct{width:40px;text-align:right;font-size:0.82rem;font-weight:700;color:#f0c040;}
+    .diary-entry{background:var(--card-bg);border:1px solid var(--border);border-radius:12px;padding:1.2rem;margin-bottom:0.75rem;}
+    .diary-entry h5{font-size:0.9rem;color:#fff;margin-bottom:0.3rem;}
+    .diary-entry p{font-size:0.82rem;color:var(--text-muted);}
+    .diary-date{font-size:0.75rem;color:var(--text-muted);margin-bottom:0.5rem;}
+    .progress-ring{position:relative;display:inline-flex;align-items:center;justify-content:center;}
+    .progress-ring svg{transform:rotate(-90deg);}
+    .progress-ring-label{position:absolute;text-align:center;}
+    .tab-content{display:none;} .tab-content.active{display:block;}
+    .tool-tabs{display:flex;gap:0.5rem;margin-bottom:2rem;border-bottom:1px solid var(--border);padding-bottom:1rem;flex-wrap:wrap;}
+    .tool-tab{padding:0.5rem 1.2rem;border-radius:10px;background:none;border:1px solid transparent;color:var(--text-muted);font-family:inherit;font-size:0.88rem;cursor:pointer;transition:all 0.2s;font-weight:500;}
+    .tool-tab.active{background:rgba(236,72,153,0.12);border-color:rgba(236,72,153,0.3);color:#f9a8d4;}
+  </style>
+</head>
+<body>
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo"><div class="logo-icon">⚖</div><div class="logo-text"><span class="logo-main">LexEdu</span><span class="logo-sub">HVHCQTC</span></div></a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html" class="nav-link">Trang chủ</a></li>
+        <li><a href="resources.html" class="nav-link">Học liệu</a></li>
+        <li><a href="cases.html" class="nav-link">Tình huống</a></li>
+        <li><a href="forum.html" class="nav-link">Đồng kiến tạo</a></li>
+        <li><a href="tools.html" class="nav-link active">Công cụ</a></li>
+        <li><a href="ai-guide.html" class="nav-link">AI & Số hoá</a></li>
+      </ul>
+      <div class="nav-actions"><a href="login.html" class="btn btn-outline">Đăng nhập</a><button class="hamburger" id="hamburger"><span></span><span></span><span></span></button></div>
+    </div>
+  </nav>
+
+  <div class="page-hero" style="background:linear-gradient(180deg,rgba(236,72,153,0.15),transparent);">
+    <span class="section-tag" style="background:rgba(236,72,153,0.15);border-color:rgba(236,72,153,0.3);color:#f9a8d4;">Phân hệ 5</span>
+    <h1>Bộ công cụ Phát triển Năng lực</h1>
+    <p>Theo dõi tiến độ, tự đánh giá năng lực và xây dựng kế hoạch học tập cá nhân của bạn.</p>
+  </div>
+
+  <div class="page-content">
+    <div class="container">
+      <div class="tool-tabs">
+        <button class="tool-tab active" onclick="showTab('assess')">📊 Tự đánh giá</button>
+        <button class="tool-tab" onclick="showTab('diary')">📔 Nhật ký học tập</button>
+        <button class="tool-tab" onclick="showTab('progress')">📈 Tiến độ</button>
+        <button class="tool-tab" onclick="showTab('plan')">🗓️ Kế hoạch cá nhân</button>
+      </div>
+
+      <!-- Self Assessment -->
+      <div id="tab-assess" class="tab-content active">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;">
+          <div>
+            <h2 style="font-family:'Playfair Display',serif;font-size:1.4rem;color:#fff;margin-bottom:1.5rem;">Tự đánh giá năng lực nghề Luật</h2>
+            <p style="color:var(--text-muted);font-size:0.88rem;margin-bottom:1.5rem;">Đánh giá mức độ thành thạo của bạn theo từng nhóm kỹ năng. Kết quả sẽ giúp gợi ý phương pháp học phù hợp.</p>
+            <div id="assessForm">
+              <div class="tool-section">
+                <h3 style="font-size:1rem;color:#f9a8d4;margin-bottom:1rem;">Kỹ năng Đọc và Hiểu pháp luật</h3>
+                <div id="sliders"></div>
+              </div>
+              <button class="btn btn-primary" onclick="calcAssess()">Xem kết quả đánh giá</button>
+            </div>
+          </div>
+          <div>
+            <div style="background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;text-align:center;" id="resultCard">
+              <div style="font-size:3rem;margin-bottom:1rem;">📊</div>
+              <h3 style="color:#fff;margin-bottom:0.5rem;">Kết quả đánh giá</h3>
+              <p style="color:var(--text-muted);font-size:0.85rem;">Hoàn thành bài tự đánh giá để xem kết quả và gợi ý học tập.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Diary -->
+      <div id="tab-diary" class="tab-content">
+        <h2 style="font-family:'Playfair Display',serif;font-size:1.4rem;color:#fff;margin-bottom:1.2rem;">📔 Nhật ký Học tập</h2>
+        <div style="background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin-bottom:1.5rem;">
+          <h4 style="color:#fff;margin-bottom:0.8rem;">Ghi chú hôm nay</h4>
+          <textarea style="width:100%;padding:0.8rem;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:10px;color:var(--text);font-family:inherit;font-size:0.88rem;resize:vertical;min-height:100px;margin-bottom:0.75rem;" placeholder="Hôm nay tôi đã học được gì? Khó khăn gặp phải? Kế hoạch tiếp theo?"></textarea>
+          <button class="btn btn-primary" onclick="alert('Đăng nhập để lưu nhật ký')">💾 Lưu nhật ký</button>
+        </div>
+        <h4 style="color:#fff;margin-bottom:1rem;">Nhật ký gần đây (Demo)</h4>
+        <div class="diary-entry"><div class="diary-date">07/08/2025</div><h5>Học về hợp đồng vô hiệu</h5><p>Đã đọc Điều 122-133 BLDS 2015. Hiểu được 4 trường hợp hợp đồng vô hiệu. Cần tìm thêm án lệ để minh họa.</p></div>
+        <div class="diary-entry"><div class="diary-date">05/08/2025</div><h5>Tham gia tranh biện chủ đề AI trong Luật</h5><p>Đã bảo vệ quan điểm ủng hộ AI hỗ trợ nghề Luật. Nhận phản hồi từ GV về việc cần dẫn chứng thuyết phục hơn.</p></div>
+        <div class="diary-entry"><div class="diary-date">03/08/2025</div><h5>Phân tích tình huống thừa kế</h5><p>Hoàn thành phân tích tình huống ông M. Được 85/100 điểm. GV nhận xét cần chú ý thêm quyền từ chối thừa kế.</p></div>
+      </div>
+
+      <!-- Progress -->
+      <div id="tab-progress" class="tab-content">
+        <h2 style="font-family:'Playfair Display',serif;font-size:1.4rem;color:#fff;margin-bottom:1.5rem;">📈 Theo dõi Tiến độ Học tập (Demo)</h2>
+        <div style="background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;margin-bottom:2rem;">
+          <h4 style="color:#fff;margin-bottom:1.5rem;">Năng lực theo kỹ năng</h4>
+          <div class="skill-item"><span class="skill-label">Đọc và hiểu luật</span><div class="skill-bar"><div class="skill-fill" style="width:0%" data-w="78"></div></div><span class="skill-pct">78%</span></div>
+          <div class="skill-item"><span class="skill-label">Phân tích tình huống</span><div class="skill-bar"><div class="skill-fill" style="width:0%" data-w="65"></div></div><span class="skill-pct">65%</span></div>
+          <div class="skill-item"><span class="skill-label">Tranh biện học thuật</span><div class="skill-bar"><div class="skill-fill" style="width:0%" data-w="55"></div></div><span class="skill-pct">55%</span></div>
+          <div class="skill-item"><span class="skill-label">Nghiên cứu khoa học</span><div class="skill-bar"><div class="skill-fill" style="width:0%" data-w="42"></div></div><span class="skill-pct">42%</span></div>
+          <div class="skill-item"><span class="skill-label">Soạn thảo văn bản</span><div class="skill-bar"><div class="skill-fill" style="width:0%" data-w="70"></div></div><span class="skill-pct">70%</span></div>
+          <div class="skill-item"><span class="skill-label">Sử dụng AI hỗ trợ</span><div class="skill-bar"><div class="skill-fill" style="width:0%" data-w="83"></div></div><span class="skill-pct">83%</span></div>
+        </div>
+        <div class="grid-3">
+          <div class="card" style="text-align:center;"><div style="font-size:2.2rem;font-weight:800;color:#f0c040;">12</div><div style="color:var(--text-muted);font-size:0.85rem;">Tình huống đã phân tích</div></div>
+          <div class="card" style="text-align:center;"><div style="font-size:2.2rem;font-weight:800;color:#818cf8;">47</div><div style="color:var(--text-muted);font-size:0.85rem;">Bình luận đã đăng</div></div>
+          <div class="card" style="text-align:center;"><div style="font-size:2.2rem;font-weight:800;color:#6ee7b7;">8</div><div style="color:var(--text-muted);font-size:0.85rem;">Tài liệu đã chia sẻ</div></div>
+        </div>
+      </div>
+
+      <!-- Plan -->
+      <div id="tab-plan" class="tab-content">
+        <h2 style="font-family:'Playfair Display',serif;font-size:1.4rem;color:#fff;margin-bottom:1.2rem;">🗓️ Kế hoạch Học tập Cá nhân</h2>
+        <div style="background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin-bottom:1.5rem;">
+          <h4 style="color:#fff;margin-bottom:1rem;">Mục tiêu tháng 8/2025</h4>
+          <div style="display:flex;flex-direction:column;gap:0.6rem;">
+            <label style="display:flex;align-items:center;gap:10px;font-size:0.88rem;color:var(--text-muted);cursor:pointer;"><input type="checkbox" checked /> <span>Đọc và tóm tắt Chương 1-3 Giáo trình Luật Dân sự</span></label>
+            <label style="display:flex;align-items:center;gap:10px;font-size:0.88rem;color:var(--text-muted);cursor:pointer;"><input type="checkbox" checked /> <span>Phân tích 3 tình huống trong kho tình huống</span></label>
+            <label style="display:flex;align-items:center;gap:10px;font-size:0.88rem;color:var(--text-muted);cursor:pointer;"><input type="checkbox" /> <span>Tham gia 1 buổi tranh biện trực tuyến</span></label>
+            <label style="display:flex;align-items:center;gap:10px;font-size:0.88rem;color:var(--text-muted);cursor:pointer;"><input type="checkbox" /> <span>Nghiên cứu 5 án lệ về hợp đồng</span></label>
+            <label style="display:flex;align-items:center;gap:10px;font-size:0.88rem;color:var(--text-muted);cursor:pointer;"><input type="checkbox" /> <span>Hoàn thành bài tự đánh giá kỳ 2</span></label>
+          </div>
+          <div style="margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border);">
+            <div style="display:flex;justify-content:space-between;font-size:0.85rem;color:var(--text-muted);margin-bottom:0.5rem;"><span>Tiến độ tháng</span><span style="color:#f0c040;">2/5 hoàn thành</span></div>
+            <div style="height:8px;background:rgba(255,255,255,0.08);border-radius:100px;overflow:hidden;"><div style="width:40%;height:100%;background:linear-gradient(90deg,#c8960c,#f0c040);border-radius:100px;"></div></div>
+          </div>
+        </div>
+        <button class="btn btn-primary" onclick="alert('Đăng nhập để thêm mục tiêu mới')">+ Thêm mục tiêu mới</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer"><div class="container"><div class="footer-bottom"><p>© 2025 LexEdu</p></div></div></footer>
+  <script src="../js/auth.js"></script>
+  <script src="../js/main.js"></script>
+  <script>
+    function showTab(name) {
+      document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+      document.querySelectorAll('.tool-tab').forEach(t=>t.classList.remove('active'));
+      document.getElementById('tab-'+name).classList.add('active');
+      event.target.classList.add('active');
+      if(name==='progress') animateBars();
+    }
+    function animateBars() {
+      document.querySelectorAll('.skill-fill').forEach(bar => {
+        setTimeout(()=>{ bar.style.width = bar.dataset.w + '%'; }, 100);
+      });
+    }
+
+    // Build assessment sliders
+    const skills = ['Đọc và hiểu điều luật','Tra cứu văn bản pháp luật','Phân tích tình huống','Lập luận và tranh biện','Soạn thảo văn bản pháp lý','Nghiên cứu khoa học pháp lý'];
+    document.getElementById('sliders').innerHTML = skills.map((s,i)=>`
+      <div style="margin-bottom:1rem;">
+        <div style="display:flex;justify-content:space-between;font-size:0.83rem;margin-bottom:0.3rem;">
+          <span style="color:var(--text-muted);">${s}</span>
+          <span style="color:#f0c040;" id="sv${i}">3</span>
+        </div>
+        <input type="range" min="1" max="5" value="3" style="width:100%;accent-color:#c8960c;" oninput="document.getElementById('sv${i}').textContent=this.value" />
+        <div style="display:flex;justify-content:space-between;font-size:0.7rem;color:var(--text-muted);"><span>Chưa biết</span><span>Thành thạo</span></div>
+      </div>
+    `).join('');
+
+    function calcAssess() {
+      const vals = Array.from(document.querySelectorAll('#sliders input')).map(i=>+i.value);
+      const avg = (vals.reduce((a,b)=>a+b,0)/vals.length*20).toFixed(0);
+      const level = avg>=80?'Nâng cao 🌟':avg>=60?'Trung bình 📈':'Cơ bản 🌱';
+      document.getElementById('resultCard').innerHTML = `
+        <div style="font-size:2.5rem;margin-bottom:0.5rem;">🎯</div>
+        <div style="font-size:2.5rem;font-weight:800;color:#f0c040;margin-bottom:0.5rem;">${avg}%</div>
+        <div style="font-size:1rem;color:#fff;font-weight:700;margin-bottom:1rem;">Cấp độ: ${level}</div>
+        <p style="font-size:0.83rem;color:var(--text-muted);line-height:1.7;">${avg>=80?'Năng lực tốt! Tập trung vào nghiên cứu chuyên sâu và NCKH.':avg>=60?'Đang phát triển tốt. Tăng cường thực hành tình huống.':'Hãy bắt đầu với phương pháp đọc luật cơ bản và tình huống đơn giản.'}</p>
+      `;
+    }
+  </script>
+</body>
+</html>

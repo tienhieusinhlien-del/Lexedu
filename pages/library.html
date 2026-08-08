@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kho Tài liệu Học thuật – LexEdu</title>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    .lib-tabs{display:flex;gap:0.5rem;margin-bottom:2rem;border-bottom:1px solid var(--border);padding-bottom:0;flex-wrap:wrap;}
+    .lib-tab{padding:0.65rem 1.3rem;border-radius:10px 10px 0 0;background:none;border:1px solid transparent;border-bottom:none;color:var(--text-muted);font-family:inherit;font-size:0.9rem;cursor:pointer;transition:all 0.2s;font-weight:500;margin-bottom:-1px;}
+    .lib-tab.active{background:var(--card-bg);border-color:var(--border);border-bottom-color:var(--bg);color:#fff;}
+    .doc-card{background:var(--card-bg);border:1px solid var(--border);border-radius:14px;padding:1.3rem;transition:all 0.25s;display:flex;gap:1rem;align-items:flex-start;}
+    .doc-card:hover{transform:translateY(-3px);border-color:rgba(255,255,255,0.15);box-shadow:0 8px 24px rgba(0,0,0,0.3);}
+    .doc-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;}
+    .doc-body{flex:1;min-width:0;}
+    .doc-body h4{font-size:0.95rem;font-weight:700;color:#fff;margin-bottom:0.3rem;}
+    .doc-body p{font-size:0.8rem;color:var(--text-muted);margin-bottom:0.6rem;line-height:1.6;}
+    .doc-meta{display:flex;gap:0.8rem;font-size:0.72rem;color:var(--text-muted);flex-wrap:wrap;}
+    .doc-actions{display:flex;gap:0.5rem;margin-top:0.75rem;flex-wrap:wrap;}
+    .doc-btn{padding:0.3rem 0.85rem;border-radius:7px;font-size:0.78rem;font-weight:600;border:1px solid var(--border);background:none;color:var(--text-muted);cursor:pointer;font-family:inherit;transition:all 0.2s;text-decoration:none;display:inline-flex;align-items:center;gap:4px;}
+    .doc-btn:hover{background:rgba(200,150,12,0.1);border-color:rgba(200,150,12,0.4);color:#f0c040;}
+    .doc-btn.primary{background:rgba(200,150,12,0.12);border-color:rgba(200,150,12,0.3);color:#f0c040;}
+    .upload-box{background:rgba(200,150,12,0.05);border:2px dashed rgba(200,150,12,0.25);border-radius:14px;padding:2rem;text-align:center;margin-bottom:2rem;display:none;}
+    .search-row{display:flex;gap:1rem;margin-bottom:1.5rem;flex-wrap:wrap;}
+    .search-row input{flex:1;padding:0.75rem 1rem;background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:10px;color:var(--text);font-family:inherit;font-size:0.88rem;min-width:200px;}
+    .search-row input:focus{outline:none;border-color:rgba(200,150,12,0.4);}
+    .search-row select{padding:0.75rem 1rem;background:rgba(13,21,40,0.95);border:1px solid var(--border);border-radius:10px;color:var(--text);font-family:inherit;font-size:0.88rem;}
+    .tab-content{display:none;} .tab-content.active{display:block;}
+    .gv-badge{background:rgba(200,150,12,0.12);color:#f0c040;padding:0.15rem 0.6rem;border-radius:100px;font-size:0.7rem;font-weight:700;}
+  </style>
+</head>
+<body>
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo"><div class="logo-icon">⚖</div><div class="logo-text"><span class="logo-main">LexEdu</span><span class="logo-sub">HVHCQTC</span></div></a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html" class="nav-link">LexEdu</a></li>
+        <li><a href="library.html" class="nav-link active">📚 Kho Tài liệu</a></li>
+        <li><a href="cases.html" class="nav-link">⚖️ Tình huống</a></li>
+        <li><a href="forum.html" class="nav-link">🤝 Đồng kiến tạo</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="login.html" class="btn btn-outline">Đăng nhập</a>
+        <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="page-hero">
+    <span class="section-tag">Kho lưu trữ 1</span>
+    <h1>📚 Kho Tài liệu Học thuật</h1>
+    <p>Tập hợp giáo trình, văn bản pháp luật, bộ luật và tài liệu nghiên cứu phục vụ học tập ngành Luật.</p>
+  </div>
+
+  <div class="page-content">
+    <div class="container">
+
+      <!-- Upload box (chỉ hiện với GV) -->
+      <div class="upload-box" id="uploadBox">
+        <div style="font-size:2rem;margin-bottom:0.5rem;">📤</div>
+        <p style="color:#fff;font-weight:600;margin-bottom:0.5rem;">Đăng tải tài liệu mới</p>
+        <p style="color:var(--text-muted);font-size:0.85rem;margin-bottom:1rem;">Chỉ Giảng viên mới có thể đăng tải tài liệu vào kho.</p>
+        <div style="display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;align-items:center;">
+          <input type="text" id="uploadTitle" placeholder="Tên tài liệu..." style="padding:0.6rem 1rem;background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:inherit;font-size:0.85rem;width:200px;" />
+          <select id="uploadCat" style="padding:0.6rem 1rem;background:rgba(13,21,40,0.95);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:inherit;font-size:0.85rem;">
+            <option value="Giáo trình">Giáo trình</option>
+            <option value="Bộ luật">Bộ luật / VBPL</option>
+            <option value="Nghiên cứu">Tài liệu nghiên cứu</option>
+            <option value="Biểu mẫu">Biểu mẫu pháp lý</option>
+          </select>
+          <input type="text" id="uploadDesc" placeholder="Mô tả ngắn..." style="padding:0.6rem 1rem;background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:inherit;font-size:0.85rem;width:200px;" />
+          <input type="file" id="uploadFileInput" accept=".pdf,.doc,.docx,.png,.jpg,.jpeg" style="padding:0.5rem;background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.8rem;width:220px;" />
+          <button onclick="uploadDoc()" class="btn btn-primary" style="font-size:0.85rem;">➕ Thêm & Tải tệp lên</button>
+        </div>
+        <div id="uploadMsg" style="margin-top:0.75rem;font-size:0.82rem;"></div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="lib-tabs">
+        <button class="lib-tab active" onclick="switchTab('all')">Tất cả</button>
+        <button class="lib-tab" onclick="switchTab('Giáo trình')">📕 Giáo trình</button>
+        <button class="lib-tab" onclick="switchTab('Bộ luật')">📜 Bộ luật / VBPL</button>
+        <button class="lib-tab" onclick="switchTab('Nghiên cứu')">🔬 Tài liệu nghiên cứu</button>
+        <button class="lib-tab" onclick="switchTab('Biểu mẫu')">📄 Biểu mẫu pháp lý</button>
+      </div>
+
+      <!-- Search -->
+      <div class="search-row">
+        <input type="text" id="searchInput" placeholder="🔍  Tìm kiếm tài liệu..." oninput="renderDocs()" />
+      </div>
+
+      <div id="docGrid" style="display:flex;flex-direction:column;gap:1rem;"></div>
+    </div>
+  </div>
+
+  <footer class="footer"><div class="container"><div class="footer-bottom"><p>© 2025 LexEdu – HVHCQTC</p></div></div></footer>
+
+  <script src="../js/auth.js"></script>
+  <script src="../js/db.js"></script>
+  <script src="../js/cloud-db.js"></script>
+  <script src="../js/supabase-db.js"></script>
+  <script src="../js/main.js"></script>
+  <script>
+    let currentTab = 'all';
+    const catIcons = { 'Giáo trình':'📕','Bộ luật':'📜','Nghiên cứu':'🔬','Biểu mẫu':'📄' };
+    const catColors = { 'Giáo trình':'rgba(79,70,229,0.15)','Bộ luật':'rgba(200,150,12,0.15)','Nghiên cứu':'rgba(139,92,246,0.15)','Biểu mẫu':'rgba(245,158,11,0.12)' };
+
+    // Seed mặc định nếu chưa có
+    function seedLibrary() {
+      if (DB.getResources().length > 0) return;
+      const defaults = [
+        { id:'res_default_1', title:'Giáo trình Luật Dân sự', cat:'Giáo trình', desc:'Tài liệu giảng dạy chính thức môn Luật Dân sự, cập nhật theo BLDS 2015.', author:'TS. Nguyễn Văn A', year:'2024' },
+        { id:'res_default_2', title:'Giáo trình Luật Hành chính', cat:'Giáo trình', desc:'Nội dung cơ bản về pháp luật hành chính và quản lý nhà nước.', author:'PGS. Trần Thị B', year:'2024' },
+        { id:'res_default_3', title:'Bộ luật Dân sự 2015 (BLDS)', cat:'Bộ luật', desc:'Toàn văn Bộ luật Dân sự số 91/2015/QH13 có chú giải điều khoản.', author:'Quốc hội', year:'2015' },
+        { id:'res_default_4', title:'Luật Tố tụng Hành chính 2015', cat:'Bộ luật', desc:'Luật số 93/2015/QH13, áp dụng giải quyết vụ án hành chính.', author:'Quốc hội', year:'2015' },
+        { id:'res_default_5', title:'Bộ luật Hình sự 2015 (sửa đổi 2017)', cat:'Bộ luật', desc:'BLHS số 100/2015/QH13 được sửa đổi bổ sung năm 2017.', author:'Quốc hội', year:'2017' },
+        { id:'res_default_6', title:'Luật Doanh nghiệp 2020', cat:'Bộ luật', desc:'Luật số 59/2020/QH14 về thành lập và hoạt động doanh nghiệp.', author:'Quốc hội', year:'2020' },
+        { id:'res_default_7', title:'Phương pháp đồng kiến tạo trong GDĐH Luật', cat:'Nghiên cứu', desc:'Bài nghiên cứu về mô hình co-creation trong đào tạo ngành Luật tại Việt Nam.', author:'Nhóm NCKH', year:'2025' },
+        { id:'res_default_8', title:'Mẫu Đơn khởi kiện dân sự', cat:'Biểu mẫu', desc:'Biểu mẫu số 23-DS theo Nghị quyết 01/2017 của HĐTP TAND Tối cao.', author:'TAND Tối cao', year:'2023' },
+        { id:'res_default_9', title:'Mẫu Hợp đồng mua bán tài sản', cat:'Biểu mẫu', desc:'Mẫu hợp đồng chuẩn theo quy định BLDS 2015.', author:'Bộ Tư pháp', year:'2023' },
+      ];
+      defaults.forEach(d => DB.addResource({ ...d, category: d.cat, uploadedBy: 'system' }));
+    }
+
+    function switchTab(cat) {
+      currentTab = cat;
+      document.querySelectorAll('.lib-tab').forEach((t, i) => {
+        const tabs = ['all','Giáo trình','Bộ luật','Nghiên cứu','Biểu mẫu'];
+        t.classList.toggle('active', tabs[i] === cat);
+      });
+      renderDocs();
+    }
+
+    function renderDocs() {
+      const q = document.getElementById('searchInput').value.toLowerCase();
+      let docs = DB.getResources();
+      if (currentTab !== 'all') docs = docs.filter(d => (d.cat || d.category) === currentTab);
+      if (q) docs = docs.filter(d => d.title.toLowerCase().includes(q) || (d.desc||'').toLowerCase().includes(q));
+
+      const user = Auth.getSession();
+      const grid = document.getElementById('docGrid');
+
+      if (!docs.length) {
+        grid.innerHTML = '<div style="text-align:center;padding:3rem;color:var(--text-muted);">Không tìm thấy tài liệu nào.</div>';
+        return;
+      }
+
+      grid.innerHTML = docs.map(d => {
+        const cat = d.cat || d.category || 'Tài liệu';
+        const icon = catIcons[cat] || '📄';
+        const bg = catColors[cat] || 'rgba(255,255,255,0.06)';
+        const isOwner = user && (user.role === 'lecturer' || d.uploadedBy === user.id);
+        const hasFile = d.fileInfo && d.fileInfo.dataUrl;
+
+        return `
+          <div class="doc-card">
+            <div class="doc-icon" style="background:${bg};">${icon}</div>
+            <div class="doc-body">
+              <h4>${d.title}</h4>
+              <p>${d.desc || ''}</p>
+              <div class="doc-meta">
+                <span>📁 ${cat}</span>
+                ${d.author ? `<span>👤 ${d.author}</span>` : ''}
+                ${d.year ? `<span>📅 ${d.year}</span>` : ''}
+                ${d.fileInfo ? `<span style="color:#6ee7b7;">📎 ${d.fileInfo.name} (${d.fileInfo.size})</span>` : ''}
+                ${d.uploadedBy && d.uploadedBy !== 'system' ? `<span class="gv-badge">GV đăng tải</span>` : ''}
+              </div>
+              <div class="doc-actions">
+                ${hasFile ? `
+                  <a href="${d.fileInfo.dataUrl}" target="_blank" download="${d.fileInfo.name}" class="doc-btn primary">
+                    ⬇ Tải file về máy (${d.fileInfo.name.split('.').pop().toUpperCase()})
+                  </a>
+                  <button onclick="previewFile('${d.id}')" class="doc-btn">👁 Xem chi tiết</button>
+                ` : `
+                  <a href="#" class="doc-btn primary" onclick="viewDemoDoc(event,'${d.title}')">👁 Xem văn bản mẫu</a>
+                  <a href="#" class="doc-btn" onclick="event.preventDefault();alert('File đang được cập nhật bởi Giảng viên.')">⬇ Tải xuống</a>
+                `}
+                ${isOwner && d.uploadedBy !== 'system' ? `<button class="doc-btn" style="color:#fca5a5;border-color:rgba(239,68,68,0.3);" onclick="deleteDoc('${d.id}')">🗑 Xoá</button>` : ''}
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function viewDemoDoc(e, title) {
+      e.preventDefault();
+      alert(`📄 "${title}"\n\nĐây là văn bản tài liệu pháp luật mặc định trong chương trình học. Giảng viên có thể tải lên file .PDF hoặc .DOCX thực tế từ máy tính qua nút bấm bên trên!`);
+    }
+
+    function previewFile(id) {
+      const d = DB.getResources().find(x => x.id === id);
+      if (d && d.fileInfo) {
+        const win = window.open();
+        win.document.write(`<html><head><title>${d.title}</title></head><body style="margin:0;background:#111;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;font-family:sans-serif;"><h2>${d.title}</h2><p>Tệp tin: ${d.fileInfo.name} (${d.fileInfo.size})</p><a href="${d.fileInfo.dataUrl}" download="${d.fileInfo.name}" style="padding:10px 20px;background:#f0c040;color:#000;text-decoration:none;border-radius:8px;font-weight:bold;">Tải tệp tin về máy</a></body></html>`);
+      }
+    }
+
+    function deleteDoc(id) {
+      if (!confirm('Xoá tài liệu này?')) return;
+      const list = DB.getResources().filter(d => d.id !== id);
+      localStorage.setItem('lexedu_resources', JSON.stringify(list));
+      renderDocs();
+    }
+
+    async function uploadDoc() {
+      const user = Auth.getSession();
+      if (!user) { window.location.href = 'login.html'; return; }
+      const title = document.getElementById('uploadTitle').value.trim();
+      const cat = document.getElementById('uploadCat').value;
+      const desc = document.getElementById('uploadDesc').value.trim();
+      const fileInput = document.getElementById('uploadFileInput');
+      const msg = document.getElementById('uploadMsg');
+
+      if (!title) { msg.style.color='#fca5a5'; msg.textContent='⚠ Vui lòng nhập tên tài liệu.'; return; }
+
+      const fileObj = fileInput.files && fileInput.files[0] ? fileInput.files[0] : null;
+
+      msg.style.color = '#f0c040';
+      msg.textContent = '⏳ Đang tải tệp lên Đám mây Supabase...';
+
+      if (typeof SupabaseDB !== 'undefined' && SupabaseDB.addResource) {
+        await SupabaseDB.addResource({
+          title,
+          cat,
+          category: cat,
+          desc,
+          author: user.name,
+          year: new Date().getFullYear().toString(),
+          uploadedBy: user.id
+        }, fileObj);
+      } else {
+        DB.addResource({ title, cat, category: cat, desc, author: user.name, year: new Date().getFullYear().toString(), uploadedBy: user.id });
+      }
+
+      document.getElementById('uploadTitle').value = '';
+      document.getElementById('uploadDesc').value = '';
+      if (fileInput) fileInput.value = '';
+
+      msg.style.color = '#6ee7b7';
+      msg.textContent = '✓ Đã tải tài liệu & tệp tin lên Cloud!';
+      setTimeout(() => msg.textContent = '', 3000);
+      renderDocs();
+    }
+
+    // Khởi động
+    seedLibrary();
+    renderDocs();
+
+    if (typeof CloudDB !== 'undefined' && CloudDB.listenResources) {
+      CloudDB.listenResources((updatedResources) => {
+        renderDocs();
+      });
+    }
+
+    // Hiện nút upload nếu là GV
+    const _user = Auth.getSession();
+    if (_user && _user.role === 'lecturer') {
+      document.getElementById('uploadBox').style.display = 'block';
+    }
+  </script>
+</body>
+</html>

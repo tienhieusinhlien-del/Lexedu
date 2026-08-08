@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kho Học liệu – LexEdu</title>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">
+        <div class="logo-icon">⚖</div>
+        <div class="logo-text"><span class="logo-main">LexEdu</span><span class="logo-sub">HVHCQTC</span></div>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html" class="nav-link">Trang chủ</a></li>
+        <li><a href="resources.html" class="nav-link active">Học liệu</a></li>
+        <li><a href="cases.html" class="nav-link">Tình huống</a></li>
+        <li><a href="forum.html" class="nav-link">Đồng kiến tạo</a></li>
+        <li><a href="tools.html" class="nav-link">Công cụ</a></li>
+        <li><a href="ai-guide.html" class="nav-link">AI & Số hoá</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="login.html" class="btn btn-outline">Đăng nhập</a>
+        <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="page-hero">
+    <span class="section-tag">Phân hệ 1</span>
+    <h1>Kho Học liệu Số</h1>
+    <p>Tập hợp đầy đủ giáo trình, văn bản pháp luật, án lệ và tài liệu nghiên cứu phục vụ học tập ngành Luật.</p>
+  </div>
+
+  <div class="page-content">
+    <div class="container">
+      <!-- Search bar -->
+      <div style="display:flex;gap:1rem;margin-bottom:2.5rem;flex-wrap:wrap;">
+        <input id="searchInput" type="text" placeholder="🔍  Tìm kiếm tài liệu, văn bản, án lệ..." style="flex:1;padding:0.8rem 1.2rem;background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:12px;color:var(--text);font-family:inherit;font-size:0.9rem;min-width:200px;" oninput="filterCards(this.value)" />
+        <select id="catFilter" style="padding:0.8rem 1.2rem;background:rgba(13,21,40,0.9);border:1px solid var(--border);border-radius:12px;color:var(--text);font-family:inherit;font-size:0.9rem;" onchange="filterCards(document.getElementById('searchInput').value)">
+          <option value="">Tất cả danh mục</option>
+          <option value="Giáo trình">Giáo trình</option>
+          <option value="Văn bản pháp luật">Văn bản pháp luật</option>
+          <option value="Án lệ">Án lệ</option>
+          <option value="Bản án">Bản án</option>
+          <option value="Biểu mẫu">Biểu mẫu</option>
+          <option value="Nghiên cứu">Nghiên cứu</option>
+        </select>
+      </div>
+
+      <!-- Category pills -->
+      <div style="display:flex;gap:0.6rem;margin-bottom:2rem;flex-wrap:wrap;" id="catPills">
+        <button class="cat-pill active" onclick="setCat('')">Tất cả</button>
+        <button class="cat-pill" onclick="setCat('Giáo trình')">📕 Giáo trình</button>
+        <button class="cat-pill" onclick="setCat('Văn bản pháp luật')">📜 VBPL</button>
+        <button class="cat-pill" onclick="setCat('Án lệ')">⚖️ Án lệ</button>
+        <button class="cat-pill" onclick="setCat('Bản án')">📋 Bản án</button>
+        <button class="cat-pill" onclick="setCat('Biểu mẫu')">📄 Biểu mẫu</button>
+        <button class="cat-pill" onclick="setCat('Nghiên cứu')">🔬 Nghiên cứu</button>
+      </div>
+
+      <div class="grid-3" id="resourceGrid">
+        <!-- Cards injected by JS -->
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer"><div class="container"><div class="footer-bottom"><p>© 2025 LexEdu – Học viện Hành chính và Quản trị công</p></div></div></footer>
+
+  <style>
+    .cat-pill { padding:0.4rem 1rem;border:1px solid var(--border);border-radius:100px;background:none;color:var(--text-muted);font-family:inherit;font-size:0.82rem;cursor:pointer;transition:all 0.2s; }
+    .cat-pill.active, .cat-pill:hover { background:rgba(200,150,12,0.15);border-color:rgba(200,150,12,0.4);color:#f0c040; }
+    .res-card { background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius);padding:1.4rem;transition:all 0.25s;cursor:pointer; }
+    .res-card:hover { transform:translateY(-4px);border-color:rgba(255,255,255,0.15);box-shadow:var(--shadow); }
+    .res-type { display:inline-block;padding:0.25rem 0.75rem;border-radius:100px;font-size:0.72rem;font-weight:700;margin-bottom:0.75rem; }
+    .res-card h4 { font-size:0.95rem;font-weight:700;color:#fff;margin-bottom:0.5rem;line-height:1.4; }
+    .res-card p { font-size:0.8rem;color:var(--text-muted);margin-bottom:1rem; }
+    .res-meta { display:flex;gap:1rem;font-size:0.75rem;color:var(--text-muted); }
+    .res-dl { display:inline-flex;align-items:center;gap:5px;font-size:0.8rem;color:#f0c040;font-weight:600;margin-top:0.75rem;padding:0.35rem 0.8rem;border:1px solid rgba(200,150,12,0.3);border-radius:8px; }
+  </style>
+
+  <script src="../js/auth.js"></script>
+  <script src="../js/main.js"></script>
+  <script>
+    const resources = [
+      { cat:'Giáo trình', icon:'📕', color:'rgba(79,70,229,0.15)', colorT:'#818cf8', title:'Giáo trình Luật Dân sự', desc:'Tài liệu giảng dạy chính thức môn Luật Dân sự, cập nhật theo BLDS 2015.', author:'TS. Nguyễn Văn A', year:'2024', views:'1.2k' },
+      { cat:'Giáo trình', icon:'📕', color:'rgba(79,70,229,0.15)', colorT:'#818cf8', title:'Giáo trình Luật Hành chính', desc:'Nội dung cơ bản về pháp luật hành chính và quản lý nhà nước.', author:'PGS. Trần Thị B', year:'2024', views:'980' },
+      { cat:'Văn bản pháp luật', icon:'📜', color:'rgba(200,150,12,0.15)', colorT:'#f0c040', title:'Bộ luật Dân sự 2015 (BLDS)', desc:'Toàn văn Bộ luật Dân sự số 91/2015/QH13 có chú giải.', author:'Quốc hội', year:'2015', views:'3.4k' },
+      { cat:'Văn bản pháp luật', icon:'📜', color:'rgba(200,150,12,0.15)', colorT:'#f0c040', title:'Luật Tố tụng Hành chính 2015', desc:'Luật số 93/2015/QH13, áp dụng trong giải quyết vụ án hành chính.', author:'Quốc hội', year:'2015', views:'2.1k' },
+      { cat:'Án lệ', icon:'⚖️', color:'rgba(16,185,129,0.15)', colorT:'#6ee7b7', title:'Án lệ số 01/2016/AL – HĐTP', desc:'Về hiệu lực của hợp đồng thế chấp quyền sử dụng đất.', author:'TAND Tối cao', year:'2016', views:'1.8k' },
+      { cat:'Án lệ', icon:'⚖️', color:'rgba(16,185,129,0.15)', colorT:'#6ee7b7', title:'Án lệ số 04/2016/AL – HĐTP', desc:'Về quyền của người thứ ba ngay tình trong giao dịch hợp đồng vô hiệu.', author:'TAND Tối cao', year:'2016', views:'1.5k' },
+      { cat:'Bản án', icon:'📋', color:'rgba(239,68,68,0.12)', colorT:'#fca5a5', title:'Bản án số 123/2023/DS-PT', desc:'Tranh chấp hợp đồng mua bán nhà ở – TAND TP. Hà Nội.', author:'TAND TP. Hà Nội', year:'2023', views:'456' },
+      { cat:'Biểu mẫu', icon:'📄', color:'rgba(245,158,11,0.12)', colorT:'#fcd34d', title:'Mẫu Đơn khởi kiện dân sự', desc:'Biểu mẫu số 23-DS theo Nghị quyết 01/2017 của HĐTP.', author:'TAND Tối cao', year:'2023', views:'2.7k' },
+      { cat:'Nghiên cứu', icon:'🔬', color:'rgba(139,92,246,0.15)', colorT:'#c4b5fd', title:'Phương pháp đồng kiến tạo trong GDĐH Luật', desc:'Bài nghiên cứu về mô hình co-creation trong đào tạo ngành Luật.', author:'Nhóm NCKH', year:'2025', views:'321' },
+    ];
+
+    let currentCat = '';
+    function setCat(cat) {
+      currentCat = cat;
+      document.querySelectorAll('.cat-pill').forEach((p,i)=>p.classList.toggle('active',p.onclick.toString().includes(`'${cat}'`)||(!cat&&i===0)));
+      document.getElementById('catFilter').value = cat;
+      filterCards(document.getElementById('searchInput').value);
+    }
+    function filterCards(q='') {
+      const grid = document.getElementById('resourceGrid');
+      const filtered = resources.filter(r =>
+        (!currentCat || r.cat === currentCat) &&
+        (!q || r.title.toLowerCase().includes(q.toLowerCase()) || r.desc.toLowerCase().includes(q.toLowerCase()))
+      );
+      grid.innerHTML = filtered.map(r => `
+        <div class="res-card">
+          <span class="res-type" style="background:${r.color};color:${r.colorT};">${r.icon} ${r.cat}</span>
+          <h4>${r.title}</h4>
+          <p>${r.desc}</p>
+          <div class="res-meta"><span>👤 ${r.author}</span><span>📅 ${r.year}</span><span>👁 ${r.views}</span></div>
+          <div class="res-dl">⬇ Xem / Tải xuống</div>
+        </div>
+      `).join('');
+    }
+    filterCards();
+  </script>
+</body>
+</html>
