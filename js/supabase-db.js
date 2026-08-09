@@ -1,5 +1,5 @@
-/**
- * LexEdu Supabase Cloud Database & Realtime File Storage Module
+﻿/**
+ * LawTANT Supabase Cloud Database & Realtime File Storage Module
  * Phục vụ DEMO NCKH - Tự động đồng bộ Dữ liệu & File Upload cho sinh viên & giảng viên
  */
 
@@ -16,8 +16,8 @@
 })();
 
 const SupabaseDB = (() => {
-  // Cấu hình Supabase Cloud công khai dành cho dự án NCKH LexEdu
-  const SUPABASE_URL = "https://lexedu-nckh.supabase.co";
+  // Cấu hình Supabase Cloud công khai dành cho dự án NCKH LawTANT
+  const SUPABASE_URL = "https://LawTANT-nckh.supabase.co";
   const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxleGVkdS1uY2toIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDAwMDAwMDAsImV4cCI6MjAxNTAwMDAwMH0.demo-key";
 
   let client = null;
@@ -74,7 +74,7 @@ const SupabaseDB = (() => {
     // Lưu vào bộ nhớ local & đồng bộ lên Cloud
     const list = DB.getResources();
     list.unshift(newRes);
-    localStorage.setItem('lexedu_resources', JSON.stringify(list));
+    localStorage.setItem('LawTANT_resources', JSON.stringify(list));
 
     if (window.CloudDB) {
       CloudDB.createResource(newRes);

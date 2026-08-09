@@ -1,18 +1,18 @@
-/**
- * LexEdu Auth Module
+﻿/**
+ * LawTANT Auth Module
  * Quản lý đăng nhập, đăng ký và phiên người dùng bằng localStorage
  */
 
 const Auth = (() => {
-  const KEY_USERS = 'lexedu_users';
-  const KEY_SESSION = 'lexedu_session';
+  const KEY_USERS = 'LawTANT_users';
+  const KEY_SESSION = 'LawTANT_session';
 
   // Tài khoản demo mặc định (được khởi tạo nếu chưa có data)
   const DEFAULT_USERS = [
-    { id: 'sv2025001', password: '123456', role: 'student', name: 'Nguyễn Minh Hiếu', avatar: 'MH', class: 'K47-Luật Hành chính', email: 'sv2025001@hvhcqtc.edu.vn', createdAt: '2025-08-01' },
-    { id: 'sv2025002', password: '123456', role: 'student', name: 'Trần Thị Lan', avatar: 'TL', class: 'K47-Luật Dân sự', email: 'sv2025002@hvhcqtc.edu.vn', createdAt: '2025-08-01' },
-    { id: 'gv.nguyenvana@hvhcqtc.edu.vn', password: 'gv123456', role: 'lecturer', name: 'TS. Nguyễn Văn A', avatar: 'NA', dept: 'Khoa Luật', email: 'gv.nguyenvana@hvhcqtc.edu.vn', createdAt: '2025-08-01' },
-    { id: 'gv.tranthib@hvhcqtc.edu.vn', password: 'gv123456', role: 'lecturer', name: 'PGS. Trần Thị B', avatar: 'TB', dept: 'Khoa Luật', email: 'gv.tranthib@hvhcqtc.edu.vn', createdAt: '2025-08-01' },
+    { id: 'sv2025001', password: '123456', role: 'student', name: 'Nguyễn Minh Hiếu', avatar: 'MH', class: 'K47-Luật Hành chính', email: 'sv2025001@HVHCQTC.edu.vn', createdAt: '2025-08-01' },
+    { id: 'sv2025002', password: '123456', role: 'student', name: 'Trần Thị Lan', avatar: 'TL', class: 'K47-Luật Dân sự', email: 'sv2025002@HVHCQTC.edu.vn', createdAt: '2025-08-01' },
+    { id: 'gv.nguyenvana@HVHCQTC.edu.vn', password: 'gv123456', role: 'lecturer', name: 'TS. Nguyễn Văn A', avatar: 'NA', dept: 'Khoa Luật', email: 'gv.nguyenvana@HVHCQTC.edu.vn', createdAt: '2025-08-01' },
+    { id: 'gv.tranthib@HVHCQTC.edu.vn', password: 'gv123456', role: 'lecturer', name: 'PGS. Trần Thị B', avatar: 'TB', dept: 'Khoa Luật', email: 'gv.tranthib@HVHCQTC.edu.vn', createdAt: '2025-08-01' },
   ];
 
   // Khởi tạo dữ liệu mặc định

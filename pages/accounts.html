@@ -1,8 +1,8 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 <head>
   <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Danh sách tài khoản – LexEdu</title>
+  <title>Danh sách tài khoản – LawTANT</title>
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../css/style.css" />
   <style>
@@ -34,10 +34,10 @@
     <div class="nav-container">
       <a href="../index.html" class="nav-logo">
         <div class="logo-icon">⚖</div>
-        <div class="logo-text"><span class="logo-main">LexEdu</span><span class="logo-sub">HVHCQTC</span></div>
+        <div class="logo-text"><span class="logo-main">LawTANT</span><span class="logo-sub">HVHCQTC</span></div>
       </a>
       <div class="nav-actions">
-        <a href="../index.html" class="btn btn-outline" style="font-size:0.85rem;">← LexEdu</a>
+        <a href="../index.html" class="btn btn-outline" style="font-size:0.85rem;">← LawTANT</a>
       </div>
     </div>
   </nav>
@@ -78,7 +78,7 @@
   <script src="../js/auth.js"></script>
   <script src="../js/main.js"></script>
   <script>
-    const DEMO_IDS = ['sv2025001','sv2025002','gv.nguyenvana@hvhcqtc.edu.vn','gv.tranthib@hvhcqtc.edu.vn'];
+    const DEMO_IDS = ['sv2025001','sv2025002','gv.nguyenvana@HVHCQTC.edu.vn','gv.tranthib@HVHCQTC.edu.vn'];
     const avColors = ['#1e3a5f','#4f46e5','#10b981','#c8960c','#ec4899','#8b5cf6','#f59e0b'];
 
     function getColor(name) {
@@ -122,14 +122,14 @@
     function deleteUser(id) {
       if (!confirm('Xoá tài khoản "' + id + '"?')) return;
       const users = Auth.getUsers().filter(u => u.id !== id);
-      localStorage.setItem('lexedu_users', JSON.stringify(users));
+      localStorage.setItem('LawTANT_users', JSON.stringify(users));
       refreshTable();
     }
 
     function resetDemo() {
       if (!confirm('Reset toàn bộ về tài khoản demo mặc định? Tất cả tài khoản tự tạo sẽ bị xoá.')) return;
-      localStorage.removeItem('lexedu_users');
-      localStorage.removeItem('lexedu_session');
+      localStorage.removeItem('LawTANT_users');
+      localStorage.removeItem('LawTANT_session');
       Auth.init ? Auth.init() : location.reload();
       location.reload();
     }

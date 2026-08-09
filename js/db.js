@@ -1,16 +1,16 @@
-/**
- * LexEdu DB Module
+﻿/**
+ * LawTANT DB Module
  * Lưu trữ dữ liệu thật bằng localStorage (JSON database)
  */
 
 const DB = (() => {
   const KEYS = {
-    resources: 'lexedu_resources',
-    cases: 'lexedu_cases',
-    posts: 'lexedu_posts',
-    submissions: 'lexedu_submissions',
-    diary: 'lexedu_diary',
-    notifications: 'lexedu_notifications',
+    resources: 'LawTANT_resources',
+    cases: 'LawTANT_cases',
+    posts: 'LawTANT_posts',
+    submissions: 'LawTANT_submissions',
+    diary: 'LawTANT_diary',
+    notifications: 'LawTANT_notifications',
   };
 
   // Generic get/save
@@ -104,7 +104,7 @@ const DB = (() => {
       addPost({ title: 'Mọi hợp đồng vô hiệu có đều không phát sinh hiệu lực?', body: 'Mình đang nghiên cứu về hợp đồng vô hiệu và thấy có nhiều trường hợp khác nhau theo BLDS 2015...', tag: 'Hỏi-Đáp', authorName: 'Trần Thị Lan', authorRole: 'student', replies: [] });
     }
     if (get('notifications').length === 0) {
-      addNotification({ userId: 'all', title: 'Chào mừng đến với LexEdu!', body: 'Nền tảng học tập Luật đồng kiến tạo đã sẵn sàng.', type: 'info' });
+      addNotification({ userId: 'all', title: 'Chào mừng đến với LawTANT!', body: 'Nền tảng học tập Luật đồng kiến tạo đã sẵn sàng.', type: 'info' });
     }
   }
 

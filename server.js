@@ -1,4 +1,4 @@
-const express = require('express');
+﻿const express = require('express');
 const http = require('http');
 const { Server } = require('socket.io');
 const sqlite3 = require('sqlite3').verbose();
@@ -16,10 +16,10 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, './')));
 
 // 1. KẾT NỐI VÀ KHỞI TẠO CƠ SỞ DỮ LIỆU SQLITE (SQL DATABASE)
-const dbPath = path.join(__dirname, 'lexedu.db');
+const dbPath = path.join(__dirname, 'LawTANT.db');
 const db = new sqlite3.Database(dbPath, (err) => {
   if (err) console.error('❌ Lỗi kết nối SQL Database:', err.message);
-  else console.log('✅ Đã kết nối thành công Cơ sở dữ liệu SQL (lexedu.db)');
+  else console.log('✅ Đã kết nối thành công Cơ sở dữ liệu SQL (LawTANT.db)');
 });
 
 // Tạo các bảng SQL nếu chưa tồn tại
@@ -89,9 +89,9 @@ db.serialize(() => {
   db.get("SELECT COUNT(*) as count FROM users", (err, row) => {
     if (row && row.count === 0) {
       const stmt = db.prepare("INSERT INTO users (id, name, password, role, class_dept, email, avatar) VALUES (?, ?, ?, ?, ?, ?, ?)");
-      stmt.run('sv2025001', 'Nguyễn Minh Hiếu', '123456', 'student', 'K47-Luật Hành chính', 'sv2025001@hvhcqtc.edu.vn', 'MH');
-      stmt.run('sv2025002', 'Trần Thị Lan', '123456', 'student', 'K47-Luật Dân sự', 'sv2025002@hvhcqtc.edu.vn', 'TL');
-      stmt.run('gv.nguyenvana@hvhcqtc.edu.vn', 'TS. Nguyễn Văn A', 'gv123456', 'lecturer', 'Khoa Luật', 'gv.nguyenvana@hvhcqtc.edu.vn', 'NA');
+      stmt.run('sv2025001', 'Nguyễn Minh Hiếu', '123456', 'student', 'K47-Luật Hành chính', 'sv2025001@HVHCQTC.edu.vn', 'MH');
+      stmt.run('sv2025002', 'Trần Thị Lan', '123456', 'student', 'K47-Luật Dân sự', 'sv2025002@HVHCQTC.edu.vn', 'TL');
+      stmt.run('gv.nguyenvana@HVHCQTC.edu.vn', 'TS. Nguyễn Văn A', 'gv123456', 'lecturer', 'Khoa Luật', 'gv.nguyenvana@HVHCQTC.edu.vn', 'NA');
       stmt.finalize();
       console.log('🌱 Đã khởi tạo dữ liệu tài khoản mẫu vào SQL Database!');
     }
@@ -209,7 +209,7 @@ const DEFAULT_PORT = process.env.PORT || 8080;
 
 function startServer(port) {
   server.listen(port, () => {
-    console.log(`🚀 Server LexEdu SQL & Socket.IO đang chạy tại: http://localhost:${port}`);
+    console.log(`🚀 Server LawTANT SQL & Socket.IO đang chạy tại: http://localhost:${port}`);
   }).on('error', (err) => {
     if (err.code === 'EADDRINUSE') {
       console.warn(`⚠️ Cổng ${port} đã bị chiếm, tự động chuyển sang cổng ${port + 1}...`);

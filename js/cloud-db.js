@@ -1,10 +1,10 @@
-/**
- * LexEdu Cloud Database & Live Sync Module (Dual Engine: Firebase SDK + REST Fallback)
+﻿/**
+ * LawTANT Cloud Database & Live Sync Module (Dual Engine: Firebase SDK + REST Fallback)
  * Đảm bảo 100% bạn bè ở bất kỳ đâu truy cập link web đều bình luận và thảo luận song song được!
  */
 
 const CloudDB = (() => {
-  const FIREBASE_BASE_URL = "https://lexedu-nckh-default-rtdb.asia-southeast1.firebasedatabase.app";
+  const FIREBASE_BASE_URL = "https://LawTANT-nckh-default-rtdb.asia-southeast1.firebasedatabase.app";
 
   // ===== HELPERS DÙNG REST API ĐỂ ĐỒNG BỘ MỌI NƠI MÀ KHÔNG CẦN SETUP PHỨC TẠP =====
   async function fetchCloud(path) {
@@ -47,13 +47,13 @@ const CloudDB = (() => {
     const cloudUsers = await fetchCloud('users');
     if (cloudUsers) {
       const userList = Object.values(cloudUsers);
-      localStorage.setItem('lexedu_users', JSON.stringify(userList));
+      localStorage.setItem('LawTANT_users', JSON.stringify(userList));
       if (callback) callback(userList);
     }
   }
 
   async function saveUserToCloud(user) {
-    localStorage.setItem('lexedu_users', JSON.stringify(Auth.getUsers()));
+    localStorage.setItem('LawTANT_users', JSON.stringify(Auth.getUsers()));
     const safeKey = encodeURIComponent(user.id).replace(/\./g, '_');
     await putCloud(`users/${safeKey}`, user);
   }
@@ -67,7 +67,7 @@ const CloudDB = (() => {
       const val = await fetchCloud('posts');
       if (val) {
         const posts = Object.values(val).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-        localStorage.setItem('lexedu_posts', JSON.stringify(posts));
+        localStorage.setItem('LawTANT_posts', JSON.stringify(posts));
         if (onPostsUpdated) onPostsUpdated(posts);
       }
     };
@@ -94,7 +94,7 @@ const CloudDB = (() => {
 
     const localPosts = DB.getPosts();
     localPosts.unshift(newPost);
-    localStorage.setItem('lexedu_posts', JSON.stringify(localPosts));
+    localStorage.setItem('LawTANT_posts', JSON.stringify(localPosts));
 
     await putCloud(`posts/${newPost.id}`, newPost);
     return newPost;
@@ -116,7 +116,7 @@ const CloudDB = (() => {
 
     localPosts[idx].replies = localPosts[idx].replies || [];
     localPosts[idx].replies.push(newReply);
-    localStorage.setItem('lexedu_posts', JSON.stringify(localPosts));
+    localStorage.setItem('LawTANT_posts', JSON.stringify(localPosts));
 
     await putCloud(`posts/${postId}/replies`, localPosts[idx].replies);
   }
@@ -138,7 +138,7 @@ const CloudDB = (() => {
       p.likes = Math.max(0, (p.likes || 1) - 1);
     }
 
-    localStorage.setItem('lexedu_posts', JSON.stringify(localPosts));
+    localStorage.setItem('LawTANT_posts', JSON.stringify(localPosts));
     await patchCloud(`posts/${postId}`, { likes: p.likes, likedBy: p.likedBy });
   }
 
@@ -150,7 +150,7 @@ const CloudDB = (() => {
       const val = await fetchCloud('cases');
       if (val) {
         const cases = Object.values(val).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-        localStorage.setItem('lexedu_cases', JSON.stringify(cases));
+        localStorage.setItem('LawTANT_cases', JSON.stringify(cases));
         if (onCasesUpdated) onCasesUpdated(cases);
       }
     };
@@ -175,7 +175,7 @@ const CloudDB = (() => {
 
     const localCases = DB.getCases();
     localCases.unshift(newCase);
-    localStorage.setItem('lexedu_cases', JSON.stringify(localCases));
+    localStorage.setItem('LawTANT_cases', JSON.stringify(localCases));
 
     await putCloud(`cases/${newCase.id}`, newCase);
     return newCase;
@@ -197,7 +197,7 @@ const CloudDB = (() => {
 
     localCases[idx].comments = localCases[idx].comments || [];
     localCases[idx].comments.push(newComment);
-    localStorage.setItem('lexedu_cases', JSON.stringify(localCases));
+    localStorage.setItem('LawTANT_cases', JSON.stringify(localCases));
 
     await putCloud(`cases/${caseId}/comments`, localCases[idx].comments);
     return newComment;
@@ -211,7 +211,7 @@ const CloudDB = (() => {
       const val = await fetchCloud('resources');
       if (val) {
         const resources = Object.values(val).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-        localStorage.setItem('lexedu_resources', JSON.stringify(resources));
+        localStorage.setItem('LawTANT_resources', JSON.stringify(resources));
         if (onResourcesUpdated) onResourcesUpdated(resources);
       }
     };
@@ -236,7 +236,7 @@ const CloudDB = (() => {
 
     const localRes = DB.getResources();
     localRes.unshift(newRes);
-    localStorage.setItem('lexedu_resources', JSON.stringify(localRes));
+    localStorage.setItem('LawTANT_resources', JSON.stringify(localRes));
 
     await putCloud(`resources/${newRes.id}`, newRes);
     return newRes;

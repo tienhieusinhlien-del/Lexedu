@@ -1,4 +1,4 @@
-// ===== NAVBAR SCROLL =====
+﻿// ===== NAVBAR SCROLL =====
 const navbar = document.getElementById('navbar');
 window.addEventListener('scroll', () => {
   navbar?.classList.toggle('scrolled', window.scrollY > 40);
@@ -18,7 +18,7 @@ document.querySelectorAll('.nav-link').forEach(link => {
 
 // ===== AUTH STATE – Fix logout khi chuyển trang =====
 (function updateNavAuth() {
-  const raw = localStorage.getItem('lexedu_session');
+  const raw = localStorage.getItem('LawTANT_session');
   const user = raw ? JSON.parse(raw) : null;
   const actionsEl = document.querySelector('.nav-actions');
   if (!actionsEl) return;
@@ -43,7 +43,7 @@ document.querySelectorAll('.nav-link').forEach(link => {
           ${user.name}
         </span>
       </a>
-      <button onclick="lexeduLogout()" class="btn btn-outline" style="font-size:0.82rem;padding:0.4rem 0.9rem;">
+      <button onclick="LawTANTLogout()" class="btn btn-outline" style="font-size:0.82rem;padding:0.4rem 0.9rem;">
         Đăng xuất
       </button>
       <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
@@ -53,8 +53,8 @@ document.querySelectorAll('.nav-link').forEach(link => {
   }
 })();
 
-window.lexeduLogout = function() {
-  localStorage.removeItem('lexedu_session');
+window.LawTANTLogout = function() {
+  localStorage.removeItem('LawTANT_session');
   const isInPages = window.location.pathname.includes('/pages/');
   window.location.href = isInPages ? 'login.html' : 'pages/login.html';
 };

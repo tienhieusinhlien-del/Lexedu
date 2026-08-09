@@ -1,8 +1,8 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 <head>
   <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Đăng nhập – LexEdu</title>
+  <title>Đăng nhập – LawTANT</title>
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../css/style.css" />
 </head>
@@ -11,10 +11,10 @@
     <div class="nav-container">
       <a href="../index.html" class="nav-logo">
         <div class="logo-icon">⚖</div>
-        <div class="logo-text"><span class="logo-main">LexEdu</span><span class="logo-sub">HVHCQTC</span></div>
+        <div class="logo-text"><span class="logo-main">LawTANT</span><span class="logo-sub">HVHCQTC</span></div>
       </a>
       <ul class="nav-links" id="navLinks">
-        <li><a href="../index.html" class="nav-link">LexEdu</a></li>
+        <li><a href="../index.html" class="nav-link">LawTANT</a></li>
         <li><a href="resources.html" class="nav-link">Học liệu</a></li>
         <li><a href="cases.html" class="nav-link">Tình huống</a></li>
         <li><a href="forum.html" class="nav-link">Đồng kiến tạo</a></li>
@@ -36,7 +36,7 @@
       <div style="text-align:center;margin-bottom:1.5rem;">
         <div style="font-size:2.5rem;margin-bottom:0.5rem;">⚖️</div>
         <h2>Chào mừng trở lại</h2>
-        <p class="subtitle">Đăng nhập vào nền tảng LexEdu</p>
+        <p class="subtitle">Đăng nhập vào nền tảng LawTANT</p>
       </div>
 
       <div class="role-tabs">
@@ -96,15 +96,15 @@
       document.getElementById('tabLecturer').classList.toggle('active', role === 'lecturer');
       const isGV = role === 'lecturer';
       document.getElementById('idLabel').textContent = isGV ? 'Email giảng viên' : 'Mã sinh viên';
-      document.getElementById('loginId').placeholder = isGV ? 'Nhập email @hvhcqtc.edu.vn...' : 'Nhập mã sinh viên...';
+      document.getElementById('loginId').placeholder = isGV ? 'Nhập email @HVHCQTC.edu.vn...' : 'Nhập mã sinh viên...';
       document.getElementById('demoText').innerHTML = isGV
-        ? '<b>Demo GV:</b> <code style="color:#f0c040;">gv.nguyenvana@hvhcqtc.edu.vn</code> / <code style="color:#f0c040;">gv123456</code>'
+        ? '<b>Demo GV:</b> <code style="color:#f0c040;">gv.nguyenvana@HVHCQTC.edu.vn</code> / <code style="color:#f0c040;">gv123456</code>'
         : '<b>Demo SV:</b> <code style="color:#f0c040;">sv2025001</code> / <code style="color:#f0c040;">123456</code>';
     }
 
     function fillDemo() {
       const isGV = document.getElementById('tabLecturer').classList.contains('active');
-      document.getElementById('loginId').value = isGV ? 'gv.nguyenvana@hvhcqtc.edu.vn' : 'sv2025001';
+      document.getElementById('loginId').value = isGV ? 'gv.nguyenvana@HVHCQTC.edu.vn' : 'sv2025001';
       document.getElementById('loginPw').value = isGV ? 'gv123456' : '123456';
     }
 

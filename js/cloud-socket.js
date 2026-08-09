@@ -1,11 +1,11 @@
-/**
- * LexEdu Global Cloud WebSocket Module
+﻿/**
+ * LawTANT Global Cloud WebSocket Module
  * Kết nối tất cả thiết bị từ MỌI Địa chỉ IP khác nhau trên toàn thế giới qua giao thức wss://
  */
 
 const CloudSocket = (() => {
   // Giao thức WebSocket Đám mây công khai cho phép kết nối khác IP mạng
-  const CLOUD_WSS_URL = "wss://free.system.piesocket.com/v3/lexedu_nckh_channel?api_key=o7uL34sC8d3K9l0M";
+  const CLOUD_WSS_URL = "wss://free.system.piesocket.com/v3/LawTANT_nckh_channel?api_key=o7uL34sC8d3K9l0M";
 
   let ws = null;
   let listeners = {};
