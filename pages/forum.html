@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
   <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -142,7 +142,7 @@
     let socket = null;
     if (typeof io !== 'undefined') {
       try {
-        socket = io('https://LawTANT-server.onrender.com');
+        socket = io('https://lawtant.onrender.com');
         socket.on('connect', () => console.log('⚡ Đã kết nối Socket Server Render thành công!'));
         socket.on('new_post_created', (post) => {
           console.log('⚡ Bài mới xuất hiện từ Render Server:', post);
