@@ -1,4 +1,4 @@
-﻿const express = require('express');
+const express = require('express');
 const http = require('http');
 const { Server } = require('socket.io');
 const sqlite3 = require('sqlite3').verbose();
@@ -13,7 +13,17 @@ const io = new Server(server, {
 
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join(__dirname, './')));
+
+// Phục vụ file tĩnh (HTML, CSS, JS) từ thư mục gốc
+app.use(express.static(path.join(__dirname)));
+
+// Route rõ ràng cho trang chủ
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
+app.get('/pages/:page', (req, res) => {
+  res.sendFile(path.join(__dirname, 'pages', req.params.page));
+});
 
 // 1. KẾT NỐI VÀ KHỞI TẠO CƠ SỞ DỮ LIỆU SQLITE (SQL DATABASE)
 const dbPath = path.join(__dirname, 'LawTANT.db');
